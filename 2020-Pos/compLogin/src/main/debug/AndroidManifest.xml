@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.epro.comp.login">
+
+    <application
+        android:name="debug.MyApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/comp_login_ic_launcher"
+        android:label="@string/comp_login_name"
+        android:supportsRtl="true"
+        android:theme="@style/comp_login_AppTheme_NoActionBar">
+        <activity android:name=".FindPasswordActivity"></activity>
+        <activity android:name="com.epro.comp.login.ui.activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.epro.comp.login.ui.activity.RegisterActivity" />
+    </application>
+
+</manifest>

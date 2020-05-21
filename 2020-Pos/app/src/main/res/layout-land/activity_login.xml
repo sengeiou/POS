@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_bg_login"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.24"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="0.42"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.15"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.85"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="297dp"
+                android:layout_height="145dp"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:src="@mipmap/logo_login"
+                />
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="37dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbPhoneLogin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableBottom="@drawable/shape_logintab_indicator"
+            android:button="@null"
+            android:drawablePadding="3.3dp"
+            android:text="@string/phone_login"
+            android:textColor="@color/select_login_color"
+            android:textSize="16.5sp" />
+
+        <RadioButton
+            android:id="@+id/rbEmailLogin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableBottom="@drawable/shape_logintab_indicator_tran"
+            android:button="@null"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:drawablePadding="3.3dp"
+            android:text="@string/email_login"
+            android:textColor="@color/select_login_color"
+            android:textSize="16.5sp" />
+        <RadioButton
+            android:id="@+id/rbShopIDLogin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableBottom="@drawable/shape_logintab_indicator_tran"
+            android:button="@null"
+            android:drawablePadding="3.3dp"
+            android:text="@string/store_login"
+            android:gravity="center"
+            android:textColor="@color/select_login_color"
+            android:textSize="16.5sp" />
+
+    </RadioGroup>
+     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.53"
+        android:layout_marginTop="24dp">
+      <!--手机密码登录-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rlInputPhone"
+                android:background="@drawable/shape_bg_tranblack20_radius6"
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp">
+
+                <TextView
+                    android:id="@+id/tvAreaCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="5dp"
+                    android:padding="12dp"
+                    android:text="+86"
+                    android:drawableEnd="@mipmap/arrow"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="15sp" />
+
+                <com.epro.pos.ui.view.ClearableEditText
+
+                    style="@style/MyEditText"
+                    android:id="@+id/etPhone"
+                    android:textSize="@dimen/text_size_15"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_toEndOf="@+id/tvAreaCode"
+                    android:hint="@string/pls_input_phone_number"
+                    android:singleLine="true"
+                    android:maxLength="20" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/phoneError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp"
+                    android:text="@string/phone_format_error_pls"
+                    />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:background="@drawable/shape_bg_tranblack20_radius6"
+                android:id="@+id/rlPasswordLogin"
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp">
+
+                <com.epro.pos.ui.view.ClearableEditText
+                    style="@style/MyPasswordEditText"
+                    android:textSize="15sp"
+                    android:id="@+id/etPhonePassword"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_toStartOf="@+id/cbPhoneEyes"
+                    android:singleLine="true"
+                    android:hint="@string/pls_input_psw" />
+
+                <CheckBox
+                    android:drawableStart="@drawable/selector_check_password_fix"
+                    android:id="@+id/cbPhoneEyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:button="@null"
+                    android:padding="18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pswError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    android:text="@string/phone_num_error"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:id="@+id/tvForget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="7dp"
+                    android:padding="5dp"
+                    android:text="@string/forget_password"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnPhoneLogin"
+                android:layout_width="277.5dp"
+                android:layout_height="52.5dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_bg_btn_login_disable"
+                android:textColor="@color/mainColor"
+                android:textSize="18sp"
+                android:text="@string/login" />
+            <TextView
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/tvDev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <!-- 邮箱密码登录-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:background="@drawable/shape_bg_tranblack20_radius6"
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp">
+
+                <com.epro.pos.ui.view.ClearableEditText
+                    style="@style/MyEditText"
+                    android:id="@+id/etEmail"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:singleLine="true"
+                    android:hint="@string/pls_input_email_address"
+                    android:maxLength="20" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/emailError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp"
+                    android:text="@string/email_format_error_pls"
+                    />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:background="@drawable/shape_bg_tranblack20_radius6"
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp">
+
+                <com.epro.pos.ui.view.ClearableEditText
+                    style="@style/MyPasswordEditText"
+                    android:textSize="15sp"
+                    android:id="@+id/etEmailPassword"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_toStartOf="@+id/cbEmailEyes"
+                    android:hint="@string/pls_input_psw" />
+
+                <CheckBox
+                    android:drawableStart="@drawable/selector_check_password_fix"
+                    android:id="@+id/cbEmailEyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:button="@null"
+                    android:singleLine="true"
+                    android:padding="18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/emailPswError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    android:text="@string/phone_num_error"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:id="@+id/tvEmailForget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="7dp"
+                    android:padding="5dp"
+                    android:text="@string/forget_psw"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnEmailLogin"
+                android:layout_width="277.5dp"
+                android:layout_height="52.5dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_bg_btn_login_disable"
+                android:textSize="18sp"
+                android:textColor="@color/mainColor"
+                android:text="@string/login" />
+        </LinearLayout>
+         <!--门店ID登录-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:background="@drawable/shape_bg_tranblack20_radius6"
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp">
+
+                <com.epro.pos.ui.view.ClearableEditText
+                    style="@style/MyEditText"
+                    android:id="@+id/etShopId"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:hint="@string/pls_input_store_id"
+                    android:singleLine="true"
+                    android:maxLength="20" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/storeError"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:textColor="@color/mainMatchColor"
+                android:textSize="12sp"
+                android:text="@string/store_id_error"
+                />
+            </LinearLayout>
+            <RelativeLayout
+                android:background="@drawable/shape_bg_tranblack20_radius6"
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp">
+
+                <com.epro.pos.ui.view.ClearableEditText
+                    style="@style/MyEditText"
+                    android:id="@+id/etUserName"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:hint="@string/pls_input_user_id"
+                    android:singleLine="true"
+                    android:maxLength="20" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/userError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp"
+                    android:text="@string/store_id_error"
+                    />
+            </LinearLayout>
+            <RelativeLayout
+                android:background="@drawable/shape_bg_tranblack20_radius6"
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp">
+
+                <com.epro.pos.ui.view.ClearableEditText
+                    style="@style/MyPasswordEditText"
+                    android:id="@+id/etShopIdPassword"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_toStartOf="@+id/cbShopIdEyes"
+                    android:hint="@string/pls_input_psw" />
+
+                <CheckBox
+                    android:drawableStart="@drawable/selector_check_password_fix"
+                    android:id="@+id/cbShopIdEyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:button="@null"
+                    android:singleLine="true"
+                    android:padding="18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="52.5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/storePswError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    android:text="@string/phone_num_error"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:id="@+id/tvShopIdForget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="7dp"
+                    android:padding="5dp"
+                    android:text="@string/forget_psw"
+                    android:textColor="@color/mainMatchColor"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnShopIdLogin"
+                android:layout_width="277.5dp"
+                android:layout_height="52.5dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_bg_btn_login_disable"
+                android:textSize="18sp"
+                android:textColor="@color/mainColor"
+                android:text="@string/login" />
+        </LinearLayout>
+      </ViewFlipper>
+
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"/>-->
+            <RelativeLayout
+                android:layout_width="277.5dp"
+                android:layout_gravity="center"
+                android:layout_height="0dp"
+                android:layout_weight="0.15"
+                android:visibility="gone"
+                >
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:orientation="vertical">
+                <TextView
+                    android:id="@+id/languageFan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language_fan"
+                    android:textSize="16sp"
+                    android:textColor="@color/mainMatchColor"/>
+                    <View
+                        android:id="@+id/languageFanLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/mainMatchColor"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                <TextView
+                    android:id="@+id/languageCN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language_cn"
+                    android:textSize="16sp"
+                    android:textColor="@color/mainMatchColor"/>
+                    <View
+                        android:id="@+id/languageCNLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:visibility="gone"
+                        android:background="@color/mainMatchColor"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical">
+                <TextView
+                    android:id="@+id/languageEn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language_en"
+                    android:textSize="16sp"
+                    android:textColor="@color/mainMatchColor"/>
+                    <View
+                        android:id="@+id/languageEnLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:visibility="gone"
+                        android:background="@color/mainMatchColor"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <View android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.24"
+        />
+</LinearLayout>

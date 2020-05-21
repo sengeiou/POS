@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:maxEms="15"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingEnd="5dp"
+            android:id="@+id/tvCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="@string/article_number"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/explainContentTextSize" />
+
+        <TextView
+            android:maxEms="15"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingEnd="5dp"
+            android:id="@+id/tvDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/commodity"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/explainContentTextSize" />
+
+        <TextView
+            android:maxEms="10"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingEnd="5dp"
+            android:id="@+id/tvPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/price"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/explainContentTextSize" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lineColor" />
+</RelativeLayout>
+
+
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_border_grayd9_radius4">
+    <com.epro.pos.ui.view.ClearableEditText
+        android:layout_marginEnd="5dp"
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/ivSearch"
+        android:background="@null"
+        android:hint="@string/option"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textColor="@color/mainTextColor"
+        android:textColorHint="@color/thirdTextColor"
+        android:textSize="@dimen/secondaryContentTextSize"
+        app:clearIcon="@mipmap/icon_delete_black" />
+    <ImageView
+        android:id="@+id/ivSearch"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
+        android:padding="8dp"
+        android:src="@mipmap/search" />
+</RelativeLayout>
+

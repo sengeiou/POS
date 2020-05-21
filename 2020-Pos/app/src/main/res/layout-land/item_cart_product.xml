@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_height="67dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <LinearLayout
+            android:paddingEnd="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGoodsName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:singleLine="false"
+                android:textColor="@color/mainDarkTextColor"
+                android:textSize="@dimen/explainContentTextSize" />
+            <TextView
+                android:id="@+id/tvSpec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:singleLine="false"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="@dimen/explainContentTextSize" />
+            <TextView
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:id="@+id/tvBarcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/thirdTextColor"
+                android:textSize="@dimen/explainContentTextSize" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_border_gray_radius15"
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:src="@mipmap/icon_minus"
+                    android:scaleType="center"
+                    android:id="@+id/tvLess"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="30dp" />
+                <View
+                    android:background="@color/lineColor"
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"/>
+                <EditText
+                    android:id="@+id/etNum"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="1dp"
+                    android:maxLines="1"
+                    android:text="1"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="@dimen/explainContentTextSize" />
+                <View
+                    android:background="@color/lineColor"
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"/>
+                <ImageView
+                    android:scaleType="center"
+                    android:src="@mipmap/icon_plus"
+                    android:id="@+id/tvClickLeft"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_border_grayeb_radius2"
+                android:id="@+id/etDiscount"
+                android:layout_width="36dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="0"
+                android:textColor="@color/mainTextColor"
+                android:textSize="@dimen/explainContentTextSize" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textColor="@color/mainTextColor"
+                android:textSize="@dimen/explainContentTextSize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:textSize="@dimen/explainContentTextSize"
+                android:textColor="@color/mainColor"
+                android:id="@+id/tvSubtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00" />
+            <TextView
+                android:maxLines="1"
+                android:id="@+id/tvOriginalTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textColor="@color/thirdTextColor"
+                android:textSize="@dimen/text_size_11" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lineColor" />
+</RelativeLayout>
+

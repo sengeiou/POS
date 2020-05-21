@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">@color/mainMatchColor</color>
+    <color name="colorPrimaryDark">@color/mainMatchColor</color>
+    <color name="colorAccent">@color/mainColor</color>
+
+    <color name="gray_999999">#999999</color>
+    <color name="gray_f0f0f0">#f0f0f0</color>
+    <color name="white">#ffffff</color>
+    <color name="red_b72025">#b72025</color>
+    <color name="purple_ffdaa7ff">#ffdaa7ff</color>
+    <color name="purple_ffd7a6fc">#ffd7a6fc</color>
+    <color name="purple_d7a6fc">#D7A6FC</color>
+    <color name="black_323332">#323332</color>
+    <color name="black_2b2b2b">#2B2B2B</color>
+    <color name="black">#000000</color>
+    <color name="black_727272">#727272</color>
+    <color name="black_494959">#494959</color>
+    <color name="gray_a7a6a6">#A7A6A6</color>
+    <color name="blue_7f63f9">#7F63F9</color>
+    <color name="blue_68a0f4">#68A0F4</color>
+    <color name="blue_785afe">#785AFE</color>
+    <color name="gray_86868c">#86868C</color>
+    <color name="gray_f3f3f3">#f3f3f3</color>
+    <color name="gray_fff3f3f3">#fff3f3f3</color>
+    <color name="gray_d7d8da">#D7D8DA</color>
+    <color name="gray_c2c2c2">#c2c2c2</color>
+    <color name="gray_d3d5e2">#d3d5e2</color>
+    <color name="gray_f2f2f5">#f2f2f5</color>
+
+    <!-- 主色 -->
+    <color name="mainColor">#E52020</color>
+    <!-- 与主色搭配的颜色-->
+    <color name="mainMatchColor">#ffffff</color>
+    <!-- 渐变主色 -->
+    <color name="mainColorGradient">#FA2E56</color>
+    <!-- 辅助色 -->
+    <color name="secondaryColor">#2A2E4A</color>
+    <!-- 文本,标题主色 -->
+    <color name="mainTextColor">#333333</color>
+
+    <color name="mainDarkTextColor">#000000</color>
+
+    <!-- 文本辅色 -->
+    <color name="secondaryTextColor">#666666</color>
+    <!-- 文本标签颜色 -->
+    <color name="thirdTextColor">#999999</color>
+    <!-- 背景底色 -->
+    <color name="bottomColor">#f2f2f2</color>
+    <!-- 细线的颜色-->
+    <color name="lineColor">#eeefef</color>
+
+    <!-- 白色透明度70%-->
+    <color name="mainMatchColor_70">#b3ffffff</color>
+    <!-- 透明度20%,不透明度80%-->
+    <color name="mainMatchColor_20">#ccffffff</color>
+    <!-- 透明度10%,不透明度90%-->
+    <color name="mainMatchColor_10">#e6ffffff</color>
+    <!-- 透明度60%,不透明度40%-->
+    <color name="mainMatchColor_60">#66ffffff</color>
+    <!-- 白色透明度80%-->
+    <color name="mainMatchColor_80">#CCffffff</color>
+
+
+    <color name="mainMatchColor_50">#80ffffff</color>
+    <!-- 透明度6%-->
+    <color name="mainColor_6">#0FE52020</color>
+
+    <color name="tran_black_10">#1a000000</color>
+    <color name="blue">#0000ff</color><!--蓝色 -->
+    <color name="grey">#808080</color><!--灰色 -->
+    <color name="cyan">#00ffff</color><!--青色 -->
+    <color name="gray_3c3632_60">#993C3632</color>
+    <color name="blue_10">#0F0000ff</color>
+    <color name="gray_cccccc">#cccccc</color>
+    <!--透明度60%，不透明度40%-->
+    <color name="mainTextColor_60_2">#66E52020</color>
+    <!-- 透明度60%,不透明度40%-->
+    <color name="btn_red_black60">#99F31B22</color>
+    <color name="main_80">#CCE52020</color>
+    <color name="main_50">#80E52020</color>
+    <color name="main_blue" >#007AFF </color>
+    <color name="mainText_50">#80333333</color>
+    <!--50透明度-->
+    <color name="main_blue_50" >#80007AFF </color>
+    <color name="gray_ebebeb">#ebebeb</color>
+    <color name="gray_eaeaea">#eaeaea</color>
+    <color name="transparent">#00000000</color>
+    <color name="tran_black_20">#33000000</color>
+    <color name="gray_d9d9d9">#d9d9d9</color>
+    <color name="blue_6399fe">#6399FE</color>
+    <color name="green_5dcbb1">#5DCBB1</color>
+    <color name="pink_ff9292">#FF9292</color>
+    <color name="pink_fb604b">#FB604B</color>
+    <color name="pink_e75c5e">#e75c5e</color>
+    <color name="green_a6cb50">#A6CB50</color>
+    <color name="gray_818181">#818181</color>
+    <color name="gray_979797">#979797</color>
+    <color name="gray_fdfdfd">#fdfdfd</color>
+    <color name="gray_f5f6f9">#F5F6F9</color>
+    <color name="blue_3388ff">#3388FF</color>
+    <color name="yellow_ffbe00">#ffbe00</color>
+    <color name="yellow_ff7400">#ff7400</color>
+    <color name="purple_be5ae9">#BE5AE9</color>
+    <color name="gray_f8f9fa">#F8F9FA</color>
+    <color name="gray_f5f5f5">#f5f5f5</color>
+    <color name="gray_e9e9e9">#e9e9e9</color>
+    <!--审核中-->
+    <color name="prompt_text_ing">#F69447</color>
+    <!--审核通过-->
+    <color name="prompt_text_pass">#35CC66</color>
+    <color name="back_50">#80000000</color>
+    <color name="login_area_select">#0FE52020</color>
+    <color name="getCode_login">#80666666</color>
+    <color name="green_67c8c7">#67c8c7</color>
+    <color name="blue_007aff">#007aff</color>
+    <color name="qualification_commit">#F69447</color>
+    <color name="qualification_pass">#35CC66</color>
+    <color name="home_statistics_click">#4384E3</color>
+    <color name="blue_4384e3">#4384E3</color>
+</resources>

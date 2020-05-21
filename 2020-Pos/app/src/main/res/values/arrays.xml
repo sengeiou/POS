@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="goods_category" tools:ignore="ExtraTranslation">
+        <item>全部分类</item>
+        <item>酒类</item>
+        <item>香烟</item>
+        <item>饮料</item>
+        <item>水果</item>
+        <item>蔬菜</item>
+        <item>熟食</item>
+        <item>生活用品</item>
+        <item>家具清洁</item>
+    </string-array>
+
+    <string-array name="country_list">
+        <item>中国大陆</item>
+        <item>香港</item>
+    </string-array>
+
+    <string-array name="city_list_0">
+        <item>香港区</item>
+        <item>九龙区</item>
+        <item>新界区</item>
+        <item>离岛区</item>
+    </string-array>
+
+    <string-array name="city_list_1">
+        <item>金钟</item>
+        <item>上环</item>
+        <item>西营盘</item>
+        <item>石塘咀</item>
+        <item>坚尼地城</item>
+        <item>湾仔</item>
+        <item>铜锣湾</item>
+        <item>渣甸山</item>
+        <item>小西湾</item>
+        <item>柴湾</item>
+        <item>筲箕湾</item>
+        <item>西湾河</item>
+        <item>鲗鱼涌</item>
+        <item>北角</item>
+        <item>炮台山</item>
+        <item>香港仔</item>
+        <item>鸭脷洲</item>
+        <item>黄竹坑</item>
+        <item>田湾</item>
+        <item>赤柱</item>
+        <item>浅水湾</item>
+        <item>大潭</item>
+        <item>石澳</item>
+    </string-array>
+
+    <string-array name="city_list_2">
+        <item>太子</item>
+        <item>旺角</item>
+        <item>油麻地</item>
+        <item>佐敦</item>
+        <item>尖沙咀</item>
+        <item>何文田</item>
+        <item>大角咀</item>
+        <item>深水埗</item>
+        <item>长沙湾</item>
+        <item>美孚</item>
+        <item>石硖尾</item>
+        <item>南昌</item>
+        <item>九龙城</item>
+        <item>九龙塘</item>
+        <item>土瓜湾</item>
+        <item>马头围</item>
+        <item>红磡</item>
+        <item>黄埔</item>
+        <item>黄大仙</item>
+        <item>乐富</item>
+        <item>彩虹</item>
+        <item>慈云山</item>
+        <item>新埔岗</item>
+        <item>观塘</item>
+        <item>蓝田</item>
+        <item>油塘</item>
+        <item>鲤鱼门</item>
+        <item>秀茂坪</item>
+        <item>牛头角</item>
+        <item>将军澳</item>
+    </string-array>
+    <string-array name="city_list_3">
+        <item>葵涌</item>
+        <item>葵兴</item>
+        <item>葵芳</item>
+        <item>青衣</item>
+        <item>荔景</item>
+        <item>荃湾</item>
+        <item>大窝口</item>
+        <item>沙田</item>
+        <item>大围</item>
+        <item>火炭</item>
+        <item>粉岭</item>
+        <item>上水</item>
+        <item>深井</item>
+        <item>屯门</item>
+        <item>元朗</item>
+        <item>天水围</item>
+        <item>马鞍山</item>
+        <item>西贡</item>
+    </string-array>
+    <string-array name="city_list_4">
+        <item>大屿山</item>
+        <item>赤立角</item>
+        <item>愉景湾</item>
+        <item>长洲</item>
+    </string-array>
+    <!--交易类型-->
+    <string-array name="filter_trade_type">
+        <item>全部交易类型</item>
+        <item>线上</item>
+        <item>线下</item>
+    </string-array>
+    <!--按销量排序-->
+    <string-array name="filter_sort_order">
+        <item>销量降序</item>
+        <item>销量升序</item>
+    </string-array>
+    <!--订单类型-->
+    <string-array name="filter_order_type">
+        <item>全部订单类型</item>
+        <item>销售</item>
+        <item>退货</item>
+    </string-array>
+    <!--// 付款方式付款方式(1.现金 2.支付宝 3.paypal 4.微信 5.信用卡 6.银行卡 7. 刷脸付)-->
+    <string-array name="filter_pay_type">
+        <item>全部付款方式</item>
+        <item>现金</item>
+        <item>支付宝</item>
+        <item>paypal</item>
+        <item>微信</item>
+        <item>信用卡</item>
+        <item>银行卡</item>
+        <item>刷脸付</item>
+    </string-array>
+    <!--// pos付款方式(1.现金 2.支付宝 3.微信)-->
+    <string-array name="pos_pay_type">
+        <item>现金</item>
+        <item>支付宝</item>
+        <item>微信</item>
+    </string-array>
+
+    <!--// 订单状态(( 1.未支付 2.用户已取消3.待配送 4.待自提 5.配送中  6.交易完成  7.店家已取消)-->
+    <string-array name="filter_order_status">
+        <item>全部订单状态</item>
+        <item>未支付</item>
+        <item>用户已取消</item>
+        <item>待配送</item>
+        <item>待自提</item>
+        <item>配送中</item>
+        <item>交易完成</item>
+        <item>店家已取消</item>
+    </string-array>
+    <!--// 订单状态(( 1.未支付 2.用户已取消3.待配送 4.待自提 5.配送中  6.交易完成  7.交易失败)-->
+    <string-array name="filter_order_status_show">
+        <item>全部订单状态</item>
+        <item>待配送</item>
+        <item>待自提</item>
+        <item>配送中</item>
+        <item>交易完成</item>
+        <item>交易失败</item>
+    </string-array>
+
+   <!--退款状态  1.退款中 2.退款成功 3.退款失败-->
+    <string-array name="filter_refund_status">
+        <item>--</item>
+        <item>退款中</item>
+        <item>退款成功</item>
+        <item>退款失败</item>
+    </string-array>
+
+
+    <!--商品分类-->
+    <string-array name="filter_goods_category">
+        <item>全部类别</item>
+        <item>饮品类</item>
+        <item>辅食类</item>
+        <item>酒水类</item>
+        <item>生鲜类</item>
+        <item>其他</item>
+    </string-array>
+
+    <!--商品预警-->
+    <string-array name="filter_goods_type">
+        <item>全部商品</item>
+        <item>预警商品</item>
+    </string-array>
+    <!--//商品类型(1 普通商品 0 组合商品)-->
+    <string-array name="filter_goods_type_attr">
+        <item>组合商品</item>
+        <item>普通商品</item>
+    </string-array>
+
+    <!--商品入库状态-->
+    <string-array name="filter_goods_stock_status">
+        <item>全部商品状态</item>
+        <item>未入库</item>
+        <item>已入库</item>
+    </string-array>
+
+    <!--盘点确认状态-->
+    <string-array name="filter_stock_check_status">
+        <item>全部盘点状态</item>
+        <item>未确认</item>
+        <item>已确认</item>
+    </string-array>
+
+    <!--出入库来源-->
+    <!--Integer STOCK_ADD = 1; 商品入库-->
+    <!--Integer STOCK_DEL = 2; 商品出库-->
+    <!--Integer STOCK_INVENTORY = 3; 库存盘点-->
+    <!--Integer STOCK_INIT = 4; 初始化入库-->
+    <!--Integer STOCK_POS_SALE = 5; 线下pos销售-->
+    <!--Integer STOCK_SALE = 6; 线上销售-->
+    <!--Integer STOCK_RETUEN = 7; 退货入库-->
+    <string-array name="filter_stock_outin_source">
+        <item>全部出入库来源</item>
+        <item>商品入库</item>
+        <item>商品出库</item>
+        <item>库存盘点</item>
+        <item>初始商品入库</item>
+        <item>线下销售</item>
+        <item>线上销售</item>
+        <item>退货入库</item>
+    </string-array>
+    <!--商品排序-->
+    <string-array name="filter_goods_sale_sort">
+        <item>不按销量排序</item>
+        <item>销量降序</item>
+        <item>销量升序</item>
+    </string-array>
+    <!--经营范围-->
+    <string-array name="business_scope" >
+        <item>便利店</item>
+        <item>小型超市</item>
+        <item>烟酒糖茶</item>
+        <item>母婴用品</item>
+        <item>化妆品</item>
+        <item>饰品礼品</item>
+        <item>家具家纺</item>
+        <item>保健食品</item>
+        <item>办公用品</item>
+        <item>体育用品</item>
+        <item>服装鞋帽</item>
+        <item>皮具箱包</item>
+        <item>家电数码</item>
+        <item>户外用品</item>
+        <item>汽车用品</item>
+        <item>农副产品</item>
+        <item>宠物店</item>
+        <item>果蔬生鲜</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="type_of_certificate">
+        <item>许可证</item>
+        <item>营业执照</item>
+    </string-array>
+    <!--配送方式(0自提 1配送)-->
+    <string-array name="distribution_type">
+        <item>自提</item>
+        <item>配送</item>
+    </string-array>
+    <string-array name="sales_time_type">
+        <item>今日</item>
+        <item>近一周</item>
+        <item>近一月</item>
+    </string-array>
+    <string-array name="stock_add_type">
+        <item>转化入库</item>
+        <item>新增入库</item>
+    </string-array>
+    <string-array name="problem_type">
+        <item>热门问题</item>
+        <item>入驻流程</item>
+        <item>账户相关</item>
+        <item>支付相关</item>
+        <item>配送相关</item>
+        <item>发票问题</item>
+        <item>售后服务</item>
+        <item>其他</item>
+    </string-array>
+</resources>

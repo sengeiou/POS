@@ -1,0 +1,55 @@
+package com.epro.pos.mvp.model.bean
+
+data class GoodsFileDetail(val brandId: String,
+                           val brandName: String,
+                           val buyingPrice: String,
+                           val deliveryDistance: String,
+                           val deliveryMode: String,
+                           val goodsBinding: Int,
+                           val goodsCompressPriUrl: String,
+                           val goodsCompressPriUrl1: String,
+                           val goodsCompressPriUrl2: String,
+                           val goodsCompressPriUrl3: String,
+                           val goodsCompressPriUrl4: String,
+                           val goodsDesc: String,
+                           val goodsID: String,
+                           val goodsName: String,
+                           val goodsNumber: String?,
+                           val goodsPicUrl: String,
+                           val goodsPicUrl1: String,
+                           val goodsPicUrl2: String,
+                           val goodsPicUrl3: String,
+                           val goodsPicUrl4: String,
+                           val goodsTypeId: String,
+                           val goodsTypeName: String,
+                           val goodsUnitId: String,
+                           val goodsUnitName: String,
+                           val onlineSalesPrice: String,
+                           val productList: ArrayList<Product>,
+                           val retailPrice: String,
+                           val shopId: String,
+                           val shoppingMallName: String,
+                           val sortOrder: Int,
+                           val specificationsList: ArrayList<Any?>,
+                           val status: Int) {
+
+    data class Product(val buyingPrice: String,
+                       val compressPicUrl: String,
+                       val onlineSalesPrice: String,
+                       val productBarCode: String,
+                       val productCombinationList: ArrayList<Any?>,
+                       val productNumber: Int,
+                       val productPicUrl: String,
+                       val productUnitId: String,
+                       val productUnitName: String,
+                       val retailPrice: String,
+                       val seqNum: String?,
+                       val specificationsValueIds: String,
+                       val specificationsValueNames: String,
+                       val stockEarlyNum: Int,
+                       val stockType: String) {
+
+    }
+
+
+}

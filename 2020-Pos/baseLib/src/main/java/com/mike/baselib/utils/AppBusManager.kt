@@ -1,0 +1,220 @@
+package com.mike.baselib.utils
+
+import android.bluetooth.BluetoothAdapter
+import android.content.Intent
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
+import android.widget.ImageView
+import com.google.gson.Gson
+import com.mike.baselib.R
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter
+import com.scwang.smartrefresh.layout.header.ClassicsHeader
+import java.lang.reflect.Type
+
+/**
+ * 应用业务管理工具类
+ */
+
+open class AppBusManager {
+
+    companion object {
+
+        fun setToken(token: String) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.TOKEN, token)
+        }
+
+        fun getToken(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.TOKEN, "") as String
+        }
+        fun getUuid(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.KEY_UUID, "") as String
+        }
+        fun setUuid(token: String) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.KEY_UUID, token)
+        }
+
+        fun setUsername(name: String) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.USER_NAME, name)
+        }
+
+        fun getUsername(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.USER_NAME, "") as String
+        }
+
+        fun setPassword(name: String) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.PASSWORD, name)
+        }
+
+        fun getPassword(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.PASSWORD, "") as String
+        }
+
+        fun setDeviceName(){
+            val myDevice = BluetoothAdapter.getDefaultAdapter()
+            var deviceName="unkown"
+            if(myDevice!=null){
+                 deviceName = myDevice.name
+            }
+            SPUtils.put(AppContext.getInstance().context,SPConstant.KEY_DEVICE_NAME,deviceName)
+        }
+        fun getDeviceName():String{
+            return SPUtils.get(AppContext.getInstance().context,SPConstant.KEY_DEVICE_NAME,"unkown") as String
+        }
+
+        fun isLogin(): Boolean {
+            return !TextUtils.isEmpty(getToken())
+        }
+
+        fun setDev(dev: Int) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.DEV, dev)
+        }
+
+        fun getDev(): Int {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.DEV, Constants.DV_RELEASE) as Int
+        }
+
+        fun setShopName(name: String) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.SHOP_NAME, name)
+        }
+
+        fun getShopName(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.SHOP_NAME, "") as String
+        }
+
+        //门店ID
+        fun setShopId(shopId: String) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.SHOP_ID, shopId)
+        }
+
+        //议价权限 0没有 1有
+        fun setBargain(isBargain:String){
+            SPUtils.put(AppContext.getInstance().context,SPConstant.IS_BARGAIN,isBargain)
+        }
+
+        fun isBargain():Boolean{
+            return (SPUtils.get(AppContext.getInstance().context,SPConstant.IS_BARGAIN,"") as String)=="1"
+        }
+
+        fun getShopId(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.SHOP_ID, "") as String
+        }
+
+        //用户userId
+        fun setUserId(userId: Int) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.USER_ID, userId)
+        }
+
+        fun getUserId(): Int {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.USER_ID, -1000) as Int
+        }
+
+        //登入时间保存
+        fun setLoginTime(time: String) {
+            SPUtils.put(AppContext.getInstance().context, SPConstant.LOGIN_TIME, time)
+        }
+
+        fun getLoginTime(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.LOGIN_TIME, "") as String
+        }
+
+        //邮箱
+        fun setUserEmail(email:String){
+            SPUtils.put(AppContext.getInstance().context, SPConstant.USER_EMAIL, email)
+        }
+
+        fun getUserEmail():String{
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.USER_EMAIL, "") as String
+        }
+
+        //用户编号
+        fun setUserNum(userNum:String){
+            SPUtils.put(AppContext.getInstance().context, SPConstant.USER_NUM, userNum)
+        }
+
+        fun getUserNum():String{
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.USER_NUM, "") as String
+        }
+
+        fun toJson(any: Any?): String {
+            return Gson().toJson(any)
+        }
+
+        fun <T> fromJson(json: String, clazz: Class<T>): T? {
+            if (TextUtils.isEmpty(json)) {
+                return null
+            }
+            return Gson().fromJson(json, clazz)
+        }
+
+        fun <T> fromJsonWithClassKey(bundle: Bundle, clazz: Class<T>): T? {
+            return fromJson(bundle.getString(ext_createJsonKey(clazz)).toString(), clazz)
+        }
+
+        fun <T> fromJsonWithClassKey(intent: Intent, clazz: Class<T>): T? {
+            return fromJson(intent.getStringExtra(ext_createJsonKey(clazz)), clazz)
+        }
+
+        // val type = object : TypeToken<T>() {}.type
+        fun <T> fromJson(json: String, type: Type): T? {
+            return Gson().fromJson(json, type)
+        }
+
+        fun getDevName(): String {
+            var devName = ""
+            val dev = getDev()
+            when (dev) {
+                Constants.DV_TEST -> devName = "测试"
+                Constants.DV_PRE_RELEASE -> devName = "预发布"
+                Constants.DV_RELEASE -> devName = "发布"
+            }
+            return devName
+        }
+
+        fun encryptPassword(password: String): String {
+            return AESUtils.encrypt(password)
+        }
+
+        fun getErea(): Int {
+            return 0
+        }
+
+        fun getAmountUnit(): String {
+            val ev = getErea()
+            when (ev) {
+                0 -> {
+                    return "¥"
+                }
+            }
+            return "¥"
+        }
+
+        fun getAppLanguage(): String {
+            return SPUtils.get(AppContext.getInstance().context, SPConstant.APP_LANGUAGE, Constants.SIMPLIFIED_CHINESE) as String
+        }
+
+
+        fun initRefreshUI(refreshView: View){
+            initSmartRefreshUI(refreshView as SmartRefreshLayout)
+        }
+        fun initSmartRefreshUI(smartRefreshLayout: SmartRefreshLayout){
+            smartRefreshLayout.setEnableLoadMore(false)
+            //设置全局的Header构建器
+            smartRefreshLayout.setRefreshHeader(ClassicsHeader(AppContext.getInstance().context)
+                    .setPrimaryColorId(R.color.bottomColor)
+                    // .setProgressResource(R.mipmap.gif_refresh)
+                    .setArrowDrawable(null)
+                    .setEnableLastTime(true)
+                    .setDrawableProgressSize(25F))
+            val progressView=(smartRefreshLayout.refreshHeader as ClassicsHeader).findViewById<ImageView>(com.scwang.smartrefresh.layout.R.id.srl_classics_progress)
+            progressView.ext_loadGif(R.mipmap.gif_refresh)
+            smartRefreshLayout.setRefreshFooter(ClassicsFooter(AppContext.getInstance().context).setPrimaryColorId(R.color.bottomColor).setDrawableProgressSize(25F)
+                    .setProgressResource(R.mipmap.gif_refresh))
+            val progressView1=(smartRefreshLayout.refreshFooter as ClassicsFooter).findViewById<ImageView>(com.scwang.smartrefresh.layout.R.id.srl_classics_progress)
+            progressView1.ext_loadGif(R.mipmap.gif_refresh)
+            smartRefreshLayout.setPrimaryColors(AppContext.getInstance().context.resources.getColor(R.color.bottomColor), AppContext.getInstance().context.resources.getColor(R.color.mainTextColor))
+        }
+
+    }
+}

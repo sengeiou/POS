@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--<domain-config cleartextTrafficPermitted="true">-->
+        <!--<domain includeSubdomains="true">android.bugly.qq.com</domain>-->
+    <!--</domain-config>-->
+    <base-config cleartextTrafficPermitted="true">
+        <!-- <domain includeSubdomains="true">shop.epro.com.hk</domain>
+         <domain includeSubdomains="true">android.bugly.qq.com</domain>-->
+    </base-config>
+</network-security-config>

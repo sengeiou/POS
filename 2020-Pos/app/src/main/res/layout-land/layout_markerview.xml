@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="146dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_black_radius4"
+    android:padding="10dp">
+    <TextView
+        android:gravity="center_vertical"
+        android:textSize="@dimen/explainContentTextSize"
+        android:textColor="@color/white"
+        android:text="2018-07-05"
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+      <LinearLayout
+          android:layout_marginTop="4dp"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <TextView
+              android:drawablePadding="5dp"
+              android:drawableStart="@drawable/shape_tag_radius1_blue"
+              android:gravity="center_vertical"
+              android:textSize="@dimen/explainContentTextSize"
+              android:textColor="@color/white"
+              android:text="@string/total_sales_point"
+              android:id="@+id/tvTitle1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:textStyle="bold"
+              android:gravity="center_vertical"
+              android:textSize="@dimen/secondaryContentTextSize"
+              android:textColor="@color/white"
+              android:text="0"
+              android:id="@+id/tvValue1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_marginTop="4dp"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <TextView
+              android:drawablePadding="5dp"
+              android:drawableStart="@drawable/shape_tag_radius1_green"
+              android:gravity="center_vertical"
+              android:textSize="@dimen/explainContentTextSize"
+              android:textColor="@color/white"
+              android:text="@string/online_sales_point"
+              android:id="@+id/tvTitle2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:textStyle="bold"
+              android:gravity="center_vertical"
+              android:textSize="@dimen/secondaryContentTextSize"
+              android:textColor="@color/white"
+              android:text="0"
+              android:id="@+id/tvValue2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_marginTop="4dp"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <TextView
+              android:drawablePadding="5dp"
+              android:drawableStart="@drawable/shape_tag_radius1_green2"
+              android:gravity="center_vertical"
+              android:textSize="@dimen/explainContentTextSize"
+              android:textColor="@color/white"
+              android:text="@string/offline_sales_point"
+              android:id="@+id/tvTitle3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:textStyle="bold"
+              android:gravity="center_vertical"
+              android:textSize="@dimen/secondaryContentTextSize"
+              android:textColor="@color/white"
+              android:text="0"
+              android:id="@+id/tvValue3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+      </LinearLayout>
+</LinearLayout>
+

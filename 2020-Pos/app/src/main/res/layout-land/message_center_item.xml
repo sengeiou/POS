@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/llTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dp"
+            android:paddingTop="12dp"
+            android:layout_marginRight="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="hello word"
+                android:textColor="@color/mainTextColor"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tvTimeMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2019-08-08"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:textSize="12sp"
+                android:textColor="@color/thirdTextColor"/>
+
+        </LinearLayout>
+        <View
+            android:id="@+id/pointMessage"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:background="@drawable/message_shape"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/lineColor"/>
+</LinearLayout>

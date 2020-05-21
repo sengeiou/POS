@@ -1,0 +1,455 @@
+package com.epro.pos.api
+
+import com.epro.pos.mvp.model.bean.*
+import com.epro.pos.utils.PosConst
+import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
+
+/**
+ * Api 接口
+ */
+
+interface ApiService {
+
+    /**
+     * 登录
+     */
+    //@Headers("Content-Type: application/json","Accept: application/json")//需要添加头
+    @POST(PosConst.LOGIN)
+    fun login(@Body params: LoginBean.Send): Observable<LoginBean>
+
+    /**
+     * 注册
+     */
+//    details string (query)  详情
+//    loginname string (query)  登录名
+    // truename string (query)  姓名
+    @POST(PosConst.REGISTER)
+    fun register(@Field("loginname") loginname: String,
+                 @Field("truename") truename: String,
+                 @Field("details") details: String): Observable<RegisterBean>
+
+//    oldPassword     [必填]    旧密码
+//    newPassword     [必填]    新密码
+//    scene           [必填]    changePassword
+
+    /**
+     * 修改密码
+     */
+    @POST(PosConst.MODIFY_PASSWORD)
+    fun modifyPassword(@Body params: ModifyPasswordBean.Send): Observable<ModifyPasswordBean>
+
+    /**
+     * 获取验证码
+     */
+
+    @POST(PosConst.GET_VFCODE)
+    fun getVfcode(@Body params: GetVfBean.Send): Observable<GetVfBean>
+
+    /**
+     * 获取解绑/修改密码验证码
+     */
+
+    @POST(PosConst.GET_USERVFCODE)
+    fun getUserVfcode(@Body params: GetUserVfBean.Send): Observable<GetUserVfBean>
+
+    /**
+     * 效验账号是否存在
+     */
+    @POST(PosConst.VALID_USER)
+    fun getValidUser(@Body params: GetValidUserBean.Send): Observable<GetValidUserBean>
+
+    /**
+     * 忘记密码
+     */
+    @POST(PosConst.FIND_PASSWORD)
+    fun findPassword(@Body params: FindPasswordBean.Send): Observable<FindPasswordBean>
+
+    @POST("")
+    fun ShowList(): Observable<GetCommonListBean<ShowListItem>>
+
+    @POST(PosConst.GET_PRODUCT_LIST)
+    fun getProductList(@Body params: GetCommonListBean.ProductSend): Observable<GetCommonListBean<Product>>
+
+    @POST(PosConst.GET_POS_CATEGORY_PRODUCTS)
+    fun getShopProductCategorys(): Observable<GetCommonListBean<ProductCategory>>
+
+
+    /**
+     * 商品档案列表
+     */
+    @POST(PosConst.GET_GOODS_FILE_LIST)
+    fun getGoodsFileList(@Body params: GetCommonListBean.GoodFilesSend): Observable<GetCommonListBean<GoodsFile>>
+
+
+    /**
+     * 商品分类列表
+     */
+    @POST(PosConst.GET_GOODS_CATEGORY_LIST)
+    fun getGoodsCategoryList(@Body params: GetCommonListBean.GoodCategorySend): Observable<GetCommonListBean<GoodsCategory>>
+
+    /**
+     * 商品分类 商品个数
+     */
+    @POST(PosConst.GET_GOODS_CATEGORY_COUNT_LIST)
+    fun getGoodsCategoryCountList(): Observable<GetResultListBean<GoodsCategoryCount>>
+
+    /**
+     *  后台 订单记录
+     */
+    @POST(PosConst.GET_ORDER_RECORD_LIST)
+    fun getOrderRecordList(@Body params: GetCommonListBean.OrderRecordSend): Observable<GetCommonListBean<OrderRecord>>
+
+
+    /**
+     *  商品记录
+     */
+    @POST(PosConst.GET_ORDER_GOODS_RECORDS)
+    fun getOrderGoodsRecordList(@Body params: GetCommonListBean.GoodsRecordSend): Observable<GetCommonListBean<GoodsRecord>>
+
+
+    /**
+     *  销售排行
+     */
+    @POST(PosConst.GET_ORDER_SALES_RANKING_GOODS_LIST)
+    fun getOrderSalesRankingGoodsList(@Body params: GetCommonListBean.SalesRankingSend): Observable<GetCommonListBean<SalesRanking>>
+
+    /**
+     *  毛利汇总
+     */
+    @POST(PosConst.GET_GROSS_PROFIT_GATHER_LIST)
+    fun getGrossProfitGatherList(@Body params: GetCommonListBean.GrossProfitGatherSend): Observable<GetCommonListBean<GrossProfitGather>>
+
+
+    /**
+     *  收银对账
+     */
+    @POST(PosConst.GET_CASHIER_RECONCILIATION_LIST)
+    fun getCashierReconciliationList(@Body params: GetCommonListBean.CashierReconSend): Observable<GetCommonListBean<CashierRecon>>
+
+
+    /**
+     *  库存查询
+     */
+    @POST(PosConst.GET_STOCK_QUERY_LIST)
+    fun getStockQueryList(@Body params: GetCommonListBean.StockQuerySend): Observable<GetCommonListBean<StockQueryProduct>>
+
+
+    /**
+     *  商品入库
+     */
+    @POST(PosConst.GET_STOCK_GOODS_PUTIN_LIST)
+    fun getStockGoodsPutinList(@Body params: GetCommonListBean.StockGoodsPutinSend): Observable<GetCommonListBean<StockGoodsPutin>>
+
+    /**
+     * 库存盘点
+     */
+    @POST(PosConst.GET_STOCK_TAKING_LIST)
+    fun getStockTakingList(@Body params: GetCommonListBean.StockTakingSend): Observable<GetCommonListBean<StockTaking>>
+
+    /**
+     * 出入库明细
+     */
+    @POST(PosConst.GET_STOCK_OUTIN_DETAIL)
+    fun getStockOutinDetailList(@Body params: GetCommonListBean.StockOutinDetailSend): Observable<GetCommonListBean<StockOutinDetail>>
+
+
+    /**
+     * 收银交易查询
+     */
+    @POST(PosConst.GET_POS_TRADE_LIST)
+    fun getPosTradeList(@Body params: GetCommonListBean.PosTradeSend): Observable<GetCommonListBean<PosTradeOrder>>
+
+    /**
+     * 网店已上架商品管理
+     */
+    @POST(PosConst.GET_NETSHOP_UPPER_SHELF_GOODS_LIST)
+    fun getUpperShelfGoodsList(@Body params: GetCommonListBean.UpperShelfGoodsSend): Observable<GetCommonListBean<UpperShelfGoods>>
+
+
+    @POST(PosConst.LOWER_SHELF_GOODS)
+    fun lowerShelfGoods(@Body params: LowerShelfGoodsBean.Send): Observable<LowerShelfGoodsBean>
+
+    /**
+     * 网店线上订单管理
+     */
+    @POST(PosConst.GET_NETSHOP_ONLINE_ORDER_LIST)
+    fun getOnlineOrdersList(@Body params: GetCommonListBean.OnlineGoodsSend): Observable<GetCommonListBean<OnlineOrder>>
+
+
+    @POST("")
+    fun PendOrderList(): Observable<PendOrderListBean>
+
+    /**
+     * 基本信息
+     */
+    @GET(PosConst.GET_PERSON_INFO)
+    fun PersonCenter(): Observable<PersonCenterBean>
+
+    /**
+     * 编辑头像
+     */
+    @POST(PosConst.UPDATE_AVATAR)
+    fun updateAvatar(@Body params:EditAvatarBean.Send ): Observable<EditAvatarBean>
+
+    /**
+     * 解除绑定
+     */
+    @POST(PosConst.UNBIND_ACCOUNT)
+    fun UnBindPhone(@Body params: UnBindPhoneBean.Send): Observable<UnBindPhoneBean>
+
+    /**
+     * 绑定手机
+     */
+    @POST(PosConst.BIND_PHONE_EMAIL)
+    fun BindPhonePop(@Body params: BindPhonePopBean.Send): Observable<BindPhonePopBean>
+
+    /**
+     * 商户基本信息
+     */
+    @GET(PosConst.BUSINESS_BASE_INFO)
+    fun BusinessBaseInfo(): Observable<BusinessBaseInfoBean>
+
+    /**
+     * 商户基本信息
+     */
+    @GET(PosConst.SEARCH_ADDRESS)
+    fun SearchAddress(@Query("parentId")parentId:String): Observable<SearchAddressBean>
+
+    /**
+     * 更新商户基本资料
+     */
+    @POST(PosConst.UPDATE_BUSINESS_BASE_INFO)
+    fun UpdateBusinessBaseInfo(@Body params: UpdateBusinessBaseBean.Send): Observable<UpdateBusinessBaseBean>
+
+    /**
+     * 查询商户资质资料
+     */
+
+    @GET(PosConst.MERCHANT_QUALIFICATION_INFO + "{shopId}")
+    fun QualificationInfo(@Path("shopId") shopId: String): Observable<QualificationBaseBean>
+
+    /**
+     * 更新商户资质资料
+     */
+    @POST(PosConst.UPDATE_QUALIFICATION_INFO)
+    fun updateQualificationInfo(@Body params: UpdateQualificationBaseBean.Send): Observable<UpdateQualificationBaseBean>
+
+    /**
+     * 上传图片
+     */
+    @Multipart
+    @POST(PosConst.UPDATE_IMAGE)
+    fun updateImage(@PartMap map: HashMap<String, RequestBody>, @Part image: MultipartBody.Part): Observable<UpdateImageBean>
+
+    /**
+     * 退出登录
+     */
+    @GET(PosConst.LOGOUT)
+    fun logoutSystem(): Observable<LogoutBean>
+
+    /**
+     * 绑定邮箱
+     */
+    @POST(PosConst.BIND_PHONE_EMAIL)
+    fun BindEmailPopup(@Body params: BindEmailPopupBean.Send): Observable<BindEmailPopupBean>
+
+    /**
+     * 查询商户信息
+     */
+    @GET(PosConst.SELECT_USER_INFO)
+    fun SelectUserInfo(): Observable<InquireShopBean>
+
+    /**
+     * 提交意见反馈
+     */
+    @POST(PosConst.COMMIT_FEEDBACK)
+    fun Feedback(@Body params: FeedbackBean.Send): Observable<FeedbackBean>
+
+    /**
+     * 意见反馈历史记录
+     */
+    @POST(PosConst.HISTORY_RECORD_LIST)
+    fun HistoryRecord(@Body params: HistoryRecordBean.Send): Observable<HistoryRecordBean>
+
+    /**
+     * 意见反馈详情
+     */
+    @POST(PosConst.HISTORY_RECORD_DETAIL + "{serialNo}")
+    fun HistoryDetail(@Path("serialNo") serialNo: String): Observable<HistoryDetailBean>
+
+    /**
+     * 续约
+     */
+    @POST(PosConst.RENEW_SHOP)
+    fun RenewShop(@Body params: RenewBean.Send): Observable<RenewBean>
+
+    /**
+     * 消息列表
+     */
+    @POST(PosConst.NOTICE_MESSAGE)
+    fun MessageCenter(@Body params: MessageCenterBean.Send): Observable<MessageCenterBean>
+
+    /**
+     * 消息更新已读
+     */
+    @POST(PosConst.UPDATE_READ)
+    fun UpdateRead(@Body params: updateReadBean.Send): Observable<updateReadBean>
+
+    /**
+     * 删除tips
+     */
+    @POST(PosConst.DELETE_TIPS)
+    fun deleteTips(@Body params: DeleteTipsBean.Send): Observable<DeleteTipsBean>
+
+
+    @POST("")
+    @FormUrlEncoded
+    fun AboutUs(): Observable<AboutUsBean>
+
+    @GET(PosConst.VERSION_UPDATE)
+    fun UpdateVersion(@Query ("type")type: String): Observable<UpdateVersionBean>
+
+    @POST("")
+    @FormUrlEncoded
+    fun HelpCenter(): Observable<HelpCenterBean>
+
+    @POST("")
+    @FormUrlEncoded
+    fun ProblemSolve(): Observable<ProblemSolveBean>
+
+    /**
+     * 收银结算生成订单
+     */
+    @POST(PosConst.CREATE_ORDER)
+    fun createOrder(@Body params: CreateOrderBean.Send): Observable<CreateOrderBean>
+
+    @POST("")
+    @FormUrlEncoded
+    fun SystemSettings(): Observable<SystemSettingsBean>
+
+    @POST("")
+    @FormUrlEncoded
+    fun EditBaseInfo(): Observable<EditBaseInfoBean>
+
+    /**
+     * pos交易订单详情查询
+     */
+    @GET(PosConst.GET_POS_ORDER_DETAIL)
+    fun getPosOrderDetail(@Path("orderSn") orderSn: String): Observable<GetPosOrderDetailBean>
+
+    @POST(PosConst.REFUND_PART_ORDER)
+    fun refundPartOrder(@Body params: RefundOrderBean.Send): Observable<RefundOrderBean>
+
+    @POST(PosConst.REFUND_WHOLE_ORDER)
+    fun refundWholeOrder(@Path("orderSn") orderSn: String): Observable<RefundOrderBean>
+
+    @GET(PosConst.CHECK_ORDER_PAY)
+    fun checkOrderPay(@Path("orderSn") orderSn: String): Observable<CheckOrderPayBean>
+
+
+    @POST("")
+    @FormUrlEncoded
+    fun EditStockDetail(): Observable<EditStockDetailBean>
+
+    @POST("")
+    @FormUrlEncoded
+    fun CashierReconcDetail(): Observable<CashierReconcDetailBean>
+
+    /**
+     * 收银对账
+     */
+    @POST(PosConst.CASHIER_RECONCILIATION)
+    fun CashierReconc(@Body params: CashierReconciliationBean.Send): Observable<CashierReconciliationBean>
+
+    /**
+     * 交班推出系统
+     */
+    @POST(PosConst.CHANGE_USER_LOGOUT)
+    fun changeLogout(@Body params: ChangeUserLogoutBean.Send): Observable<ChangeUserLogoutBean>
+
+
+    @GET(PosConst.GET_FINANCIAL_SCAN)
+    fun getFinancialScan(): Observable<GetFinancialScanBean>
+
+    @POST(PosConst.GET_FINANCIAL_BILL_LIST)
+    fun getFinancialBillList(@Body params: GetCommonListBean.FinancialBillSend): Observable<GetCommonListBean<FinancialBill>>
+
+    @GET(PosConst.GET_FINANCIAL_BILL_DETAIL)
+    fun getFinancialBillDetail(@Path("billSn") billSn: String): Observable<GetFinancialBillDetailBean>
+
+    @POST(PosConst.SEARCH_POS_PRODUCT)
+    fun searchProduct(@Body params: SearchProductBean.Send): Observable<SearchProductBean>
+
+    @POST(PosConst.ADD_SIMPLE_PRODUCT)
+    fun createGoods(@Body params: CreateGoodsBean.Send): Observable<CreateGoodsBean>
+
+
+    @GET(PosConst.GET_SHOPPER_LIST)
+    fun getShopperList(): Observable<GetResultListBean<Shopper>>
+
+    @POST(PosConst.ARRANGE_DISTRIBUTION)
+    fun arrangeDistribution(@Body params: ArrangeDistributionBean.Send): Observable<ArrangeDistributionBean>
+
+    @POST(PosConst.CANCEL_ONLINE_ORDER)
+    fun cancelOnlineOrder(@Body params: CancelOnlineOrderBean.Send): Observable<CancelOnlineOrderBean>
+
+    @POST(PosConst.VERIFY_ONLINE_ORDER)
+    fun verifyOnlineOrder(@Body params: VerifyOnlineOrderBean.Send): Observable<VerifyOnlineOrderBean>
+
+    @GET(PosConst.REFUND_AGAIN_ONLINE_ORDER)
+    fun refundAgainOnlineOrder(@Path("orderSn") orderSn: String): Observable<RefundAgainOnlineOrderBean>
+
+    @GET(PosConst.GET_ORDER_RECORD_DETAIL)
+    fun getOrderRecordDetail(@Path("orderSn") orderSn: String): Observable<GetOrderRecordDetailBean>
+
+
+    @GET(PosConst.GET_CASHIER_LIST)
+    fun getCashierList(): Observable<GetResultListBean<Cashier>>
+
+    @POST(PosConst.DELETE_GOODS_FILE)
+    fun delteGoodsFile(@Body params: DeleteGoodsFileBean.Send): Observable<DeleteGoodsFileBean>
+
+    @GET(PosConst.GET_GOODS_FILE_DETAIL)
+    fun getGoodsFileDetail(@Query("goodsId") goodsId: String): Observable<GetGoodsFileDetailBean>
+
+    @GET(PosConst.GET_MY_BUSINESS)
+    fun getMybusiness(): Observable<GetMyBusinessBean>
+
+    @GET(PosConst.GET_WAITDO_LIST)
+    fun getWaitdoList(): Observable<GetWaitdoListBean>
+
+    @GET(PosConst.GET_SALES)
+    fun getHomeSales(@Path("type") type: String): Observable<GetHomeSalesBean>
+
+    @GET(PosConst.GET_GOODS_DETAIL_FROM_BARCODE)
+    fun getProdutDetailByBarcode(@Query("productBarCode") productBarCode: String): Observable<GetProcuctDetailBean>
+
+    @POST(PosConst.ADD_STOCK_PUTIN)
+    fun addStockPutin(@Body params: AddStockPutinBean.Send): Observable<AddStockPutinBean>
+
+    @POST(PosConst.UPDATE_STOCK_PUTIN)
+    fun updateStockPutin(@Body params: UpdateStockPutinBean.Send): Observable<UpdateStockPutinBean>
+
+    @POST(PosConst.DELETE_STOCK_PUTIN)
+    fun deleteStockPutin(@Body params: DeleteStockPutinBean.Send): Observable<DeleteStockPutinBean>
+
+    @POST(PosConst.ADD_STOCK_TAKING)
+    fun addStockTaking(@Body params: AddStockTakingBean.Send): Observable<AddStockTakingBean>
+
+    @POST(PosConst.UPDATE_STOCK_TAKING)
+    fun updateStockTaking(@Body params: UpdateStockTakingBean.Send): Observable<UpdateStockTakingBean>
+
+    @POST(PosConst.DELETE_STOCK_TAKING)
+    fun deleteStockTaking(@Body params: DeleteStockTakingBean.Send): Observable<DeleteStockTakingBean>
+
+
+    @GET(PosConst.CANCEL_POS_TRADE)
+    fun cancelPosTrade(@Path("orderSn") orderSn: String): Observable<CancelPosTradeBean>
+
+    @GET(PosConst.GET_SYSTEM_TIME)
+    fun getSystemTime(): Observable<GetSystemTimeBean>
+
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bottomColor"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/unBindTitle"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="28dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bind_phone_num_already"
+        android:textSize="12sp"
+        android:textColor="@color/secondaryColor"
+        />
+    <RelativeLayout
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+       android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:paddingLeft="16dp"
+        android:background="@drawable/shape_bg_whole_radius4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/phoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+85288888888887777"
+            android:textColor="@color/mainTextColor"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/unBindPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="16dp"
+            android:text="@string/unbind_phone"
+            android:textColor="@color/mainColor"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+</LinearLayout>

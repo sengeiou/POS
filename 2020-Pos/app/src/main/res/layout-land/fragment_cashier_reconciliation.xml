@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bottomColor"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.86"
+        android:orientation="vertical"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:background="#E2E4EE">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1.1"
+            android:paddingTop="8dp"
+            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:id="@+id/tvStartDate"
+            android:text="@string/start_date"
+            style="@style/TextCashier"
+            />
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:id="@+id/tvStartTime"
+            android:text="@string/start_time"
+            style="@style/TextCashier"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="0.065"
+            android:layout_height="1dp"
+            android:layout_marginLeft="9.5dp"
+            android:layout_marginRight="9.5dp"
+            android:layout_gravity="center"
+            android:background="@color/thirdTextColor"
+            />
+        <TextView
+            android:id="@+id/tvEndDate"
+            android:text="@string/end_date"
+            style="@style/TextCashier"
+            />
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:id="@+id/tvEndTime"
+            android:text="@string/end_time"
+            style="@style/TextCashier"
+            />
+        <TextView
+            android:id="@+id/tvCashier"
+            android:text="@string/reconciliation"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/mainColor"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/cashier_text_bg"
+            />
+    </LinearLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8.4"
+        android:layout_marginTop="12dp"
+        android:background="@mipmap/cashier_bg"
+        android:orientation="horizontal">
+   <View
+    android:layout_width="0dp"
+    android:layout_weight="1.25"
+    android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@mipmap/cashier_list_bg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/cashier_add_reconciliation"
+            android:textSize="18sp"
+            android:textColor="@color/mainTextColor"
+            android:gravity="center"
+            android:id="@+id/reconciliationTitle"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_below="@+id/reconciliationTitle"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/lineColor"/>
+
+        <ScrollView
+            android:id="@+id/slListOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/llBottom"
+            android:layout_below="@+id/reconciliationTitle"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="-6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="9dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/businessStoreTitle"
+                        style="@style/TextCashierList2"
+                        android:text="@string/business_store" />
+
+                    <TextView
+                        android:id="@+id/tvStore"
+                        style="@style/TextCashierList"
+                        android:text=""
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cashierPersonTitle"
+                        style="@style/TextCashierList2"
+                        android:layout_width="50dp"
+                        android:text="@string/cashier_person" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cashierDateTitle"
+                        style="@style/TextCashierList2"
+                        android:text="@string/cashier_date" />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/firstOrderTitle"
+                        style="@style/TextCashierList2"
+                        android:layout_width="50dp"
+                        android:text="@string/first_pen_list" />
+
+                    <TextView
+                        android:id="@+id/tvFirstOrder"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/endOrderTitle"
+                        style="@style/TextCashierList2"
+                        android:layout_width="50dp"
+                        android:text="@string/end_pen_list" />
+
+                    <TextView
+                        android:id="@+id/tvEndOrder"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/pensNumberTitle"
+                        style="@style/TextCashierList2"
+                        android:layout_width="50dp"
+                        android:text="@string/number_pen" />
+
+                    <TextView
+                        android:id="@+id/tvALLOrder"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/lineColor" />
+
+                <LinearLayout
+                    android:id="@+id/llCash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/cash_money" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCashMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/sales_number" />
+
+                    <TextView
+                        android:id="@+id/tvSaleNum"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/saleAmount" />
+
+                    <TextView
+                        android:id="@+id/tvSaleMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCashMoney2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/number_of_returns" />
+
+                    <TextView
+                        android:id="@+id/tvReturn"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/amount" />
+
+                    <TextView
+                        android:id="@+id/tvReturnMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/bank_card" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llBankCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/sales_number" />
+
+                    <TextView
+                        android:id="@+id/tvSaleBank"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/saleAmount" />
+
+                    <TextView
+                        android:id="@+id/tvSaleBankMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:id="@+id/llBankCard2"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/number_of_returns" />
+
+                    <TextView
+                        android:id="@+id/tvSaleBankBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/amount" />
+
+                    <TextView
+                        android:id="@+id/tvBankMoneyBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llWx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/wx_sale_count" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llWxSale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/sales_number" />
+
+                    <TextView
+                        android:id="@+id/tvSalewx"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/saleAmount" />
+
+                    <TextView
+                        android:id="@+id/tvSalewxMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llWxSale2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/number_of_returns" />
+
+                    <TextView
+                        android:id="@+id/tvSalewxBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/amount" />
+
+                    <TextView
+                        android:id="@+id/tvwxMoneyBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <!--支付宝 start -->
+                <LinearLayout
+                    android:id="@+id/llZfb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/zfb_sale_count" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llZfbSale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/sales_number" />
+
+                    <TextView
+                        android:id="@+id/tvSalezfb"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/saleAmount" />
+
+                    <TextView
+                        android:id="@+id/tvSalezfbMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llZfbSale2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/number_of_returns" />
+
+                    <TextView
+                        android:id="@+id/tvSalezfbBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/amount" />
+
+                    <TextView
+                        android:id="@+id/tvzfbMoneyBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <!--支付宝 end -->
+                <!--刷脸 start -->
+                <LinearLayout
+                    android:id="@+id/llFace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/face_sale_count" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llFaceSale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/sales_number" />
+
+                    <TextView
+                        android:id="@+id/tvSaleFace"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/saleAmount" />
+
+                    <TextView
+                        android:id="@+id/tvSaleFaceMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llFaceSale2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/number_of_returns" />
+
+                    <TextView
+                        android:id="@+id/tvSaleFaceBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/amount" />
+
+                    <TextView
+                        android:id="@+id/tvFaceMoneyBack"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+                <!--刷脸支付 end -->
+                <View
+                    android:id="@+id/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/lineColor" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_height="match_parent"
+                        android:text="@string/total_income" />
+                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextCashierList2"
+                            android:layout_marginLeft="24dp"
+                            android:text="@string/total_number_of_pens" />
+
+                        <TextView
+                            android:id="@+id/tvALLCount"
+                            style="@style/TextCashierList"
+                            android:text="" />
+                    </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_height="match_parent"
+                        android:text="@string/number_of_income" />
+
+                    <TextView
+                        android:id="@+id/tvInComeNum"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/totalMoney" />
+
+                    <TextView
+                        android:id="@+id/tvInComeMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_height="match_parent"
+                        android:text="@string/number_of_expenditures" />
+
+                    <TextView
+                        android:id="@+id/tvExpend"
+                        style="@style/TextCashierList"
+                        android:text="" />
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/totalMoney" />
+
+                    <TextView
+                        android:id="@+id/tvExpendMoney"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextCashierList2"
+                        android:text="@string/total_list" />
+
+                    <TextView
+                        android:id="@+id/tvAll"
+                        style="@style/TextCashierList"
+                        android:text="" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/slListOrder"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/lineColor"/>
+        <!--底部线条-->
+        <LinearLayout
+            android:id="@+id/llBottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        <TextView
+            style="@style/TextCashierList"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:gravity="center"
+            android:text="@string/cashier_list_end"
+            android:textColor="@color/mainTextColor"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            />
+        </LinearLayout>
+    </RelativeLayout>
+
+        <!--完结-->
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1.25"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.13"
+        android:layout_marginBottom="12dp"
+        android:background="@color/white"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvPrint"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_width="84dp"
+                android:layout_height="44dp"
+                android:text="@string/print_list"
+                android:background="@drawable/shape_print_bg"
+                />
+            <TextView
+                android:id="@+id/tvOut"
+                android:layout_marginLeft="20dp"
+                android:text="@string/hand_over_and_launch_the_system"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_main_red_radius4"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_height="44dp"
+                android:layout_width="180dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

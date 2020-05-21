@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_bg_gray_half_radius10_top">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/stock_taking_detail"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="14dp"
+            android:text="@string/delete_dialog_cancel"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/titleTextSize"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_bg_white_half_radius10"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:id="@+id/rlTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/llLeft"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/WhiteButton2"
+                    android:drawablePadding="5dp"
+                    android:id="@+id/tvAdd"
+                    android:drawableStart="@mipmap/add_to"
+                    android:padding="5dp"
+                    android:text="@string/select_product" />
+                <TextView
+                    style="@style/WhiteButton2"
+                    android:layout_marginStart="20dp"
+                    android:drawablePadding="5dp"
+                    android:id="@+id/tvScanAdd"
+                    android:drawableStart="@mipmap/sweep_code"
+                    android:padding="5dp"
+                    android:text="@string/scanning_and_adding" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="end"
+                android:layout_toEndOf="@+id/llLeft"
+                android:id="@+id/llRight"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvBusinessNo"
+                    android:layout_marginEnd="85dp"
+                    android:textSize="@dimen/secondaryContentTextSize"
+                    android:textColor="@color/mainTextColor"
+                    android:text="@string/business_order_number_auto_generated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvGoodsStatus"
+                    android:textSize="@dimen/secondaryContentTextSize"
+                    android:textColor="@color/mainTextColor"
+                    android:text="@string/product_status_unconfirmed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llTitle"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_below="@id/rlTop"
+            android:layout_marginTop="12dp"
+            android:background="@color/gray_f5f5f5"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/llBottom"
+            android:layout_below="@id/llTitle"
+            android:layout_marginBottom="16dp">
+            <android.support.v7.widget.RecyclerView
+                android:layout_above="@+id/llTotal"
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:layout_above="@+id/rlRemark"
+                android:id="@+id/llTotal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+            <RelativeLayout
+                android:id="@+id/rlRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+                <TextView
+                    android:id="@+id/tvRemarkTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/remark_point"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="@dimen/secondaryContentTextSize" />
+
+                <TextView
+                    android:id="@+id/tvRemark"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@+id/tvRemarkTitle"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="@dimen/secondaryContentTextSize" />
+
+                <EditText
+                    android:maxLength="100"
+                    android:visibility="gone"
+                    android:id="@+id/etRemark"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_toEndOf="@+id/tvRemarkTitle"
+                    android:background="@drawable/shape_border_gray_radius2"
+                    android:gravity="start"
+                    android:hint="@string/please_enter_remark_information_please"
+                    android:padding="10dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textColorHint="@color/thirdTextColor"
+                    android:textSize="@dimen/secondaryContentTextSize" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvDelete"
+                style="@style/WhiteButton"
+                android:layout_marginEnd="20dp"
+                android:text="@string/delete_order" />
+
+            <TextView
+                android:id="@+id/tvSave"
+                style="@style/WhiteButton"
+                android:layout_marginEnd="20dp"
+                android:text="@string/edit_person_save" />
+
+            <TextView
+                android:id="@+id/tvSaveAndIn"
+                style="@style/RedButton"
+                android:text="@string/save_and_confirm" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+
