@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue_785afe">#785AFE</color>
+    <color name="black_tran30">#B3000000</color>
+    <color name="gray_dddddd">#dddddd</color>
+    <color name="gray_979797">#979797</color>
+    <color name="green_99cc33">#99cc33</color>
+    <color name="black_99000000">#99000000</color>
+
+
+    <!-- 主色 -->
+    <color name="mainColor">#E52020</color>
+    <!-- 与主色搭配的颜色-->
+    <color name="mainMatchColor">#ffffff</color>
+    <!-- 渐变主色 -->
+    <color name="mainColorGradient">#FA2E56</color>
+    <!-- 辅助色 -->
+    <color name="secondaryColor">#2A2E4A</color>
+    <!-- 文本,标题主色 -->
+    <color name="mainTextColor">#333333</color>
+    <!-- 文本辅色 -->
+    <color name="secondaryTextColor">#666666</color>
+    <!-- 文本标签颜色 -->
+    <color name="thirdTextColor">#999999</color>
+    <!-- 背景底色 -->
+    <color name="bottomColor">#f2f2f2</color>
+    <!-- 细线的颜色-->
+    <color name="lineColor">#e5e5e5</color>
+</resources>

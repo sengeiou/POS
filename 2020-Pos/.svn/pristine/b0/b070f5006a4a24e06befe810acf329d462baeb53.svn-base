@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_whole_radius4"
+    android:layout_marginTop="12dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        >
+        <TextView
+            android:id="@+id/tvProTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/problem_1"
+            android:textSize="14sp"
+            android:textColor="@color/mainTextColor"/>
+        <ImageView
+            android:id="@+id/imgProExpand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvPopTitle"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_gray_arrow"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tvProblem"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="something no problem"
+        android:textColor="@color/secondaryTextColor"
+        android:visibility="gone"
+        android:textSize="14sp"/>
+</LinearLayout>

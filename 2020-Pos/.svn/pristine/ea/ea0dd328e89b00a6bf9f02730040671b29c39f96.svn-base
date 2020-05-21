@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/bottomColor">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="49.5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/shape_bg_white_half_radius4_top"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="13.5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_id"
+                android:textSize="13sp"
+                android:textColor="@color/mainTextColor"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:id="@+id/storeId"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="13.5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="81233654"
+                android:textSize="13sp"
+                android:textColor="@color/thirdTextColor"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@color/lineColor"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/mainMatchColor"
+            android:gravity="center">
+            <TextView
+                style="@style/EditBusInfoTextView"
+                android:text="@string/store_name" />
+
+            <TextView
+                android:id="@+id/tvStore"
+                style="@style/EditBusInfoEditView"
+                android:text="" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@color/lineColor"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/mainMatchColor"
+            android:gravity="center">
+            <TextView
+                style="@style/EditBusInfoTextView"
+                android:text="@string/Industry_name" />
+
+            <TextView
+                android:id="@+id/industrySelect"
+                style="@style/EditBusInfoEditView"
+                android:text="" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@color/lineColor"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/mainMatchColor"
+            android:gravity="center">
+            <TextView
+                style="@style/EditBusInfoTextView"
+                android:text="@string/area_address" />
+
+            <TextView
+                android:id="@+id/areaSelect"
+                style="@style/EditBusInfoEditView"
+                android:text="" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@color/lineColor"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/mainMatchColor"
+            android:gravity="center">
+            <TextView
+                style="@style/EditBusInfoTextView"
+                android:text="@string/detail_address" />
+
+            <TextView
+                android:id="@+id/detailAddress"
+                style="@style/EditBusInfoEditView"
+                android:text="" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@color/lineColor"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/mainMatchColor"
+            android:gravity="center">
+            <TextView
+                style="@style/EditBusInfoTextView"
+                android:text="@string/contract_person" />
+
+            <TextView
+                android:id="@+id/tvContact"
+                style="@style/EditBusInfoEditView"
+                android:text="" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@color/lineColor"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/mainMatchColor"
+            android:gravity="center">
+            <TextView
+                style="@style/EditBusInfoTextView"
+                android:text="@string/phone_num" />
+
+            <TextView
+                android:id="@+id/tvPhoneNum"
+                style="@style/EditBusInfoEditView"
+                android:text="" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:background="@color/lineColor"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/shape_bg_white_half_radius4_bottom"
+            android:gravity="center">
+            <TextView
+                style="@style/EditBusInfoTextView"
+                android:text="@string/email_address" />
+
+            <TextView
+                android:id="@+id/tvEmailAddress"
+                style="@style/EditBusInfoEditView"
+                android:text="" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/rlFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginEnd="20dp"
+                android:id="@+id/tvAllLowerShelf"
+                style="@style/WhiteButton2"
+                android:layout_height="32dp"
+                android:text="@string/remove_all" />
+            <TextView
+                android:layout_marginEnd="20dp"
+                android:id="@+id/tvAllDelete"
+                style="@style/WhiteButton2"
+                android:layout_height="32dp"
+                android:text="@string/delete_all" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/explainContentTextSize"
+            android:layout_centerVertical="true"
+            android:text="@string/note_the_goods_are_managed_here_and_cannot_be_operated_separately"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

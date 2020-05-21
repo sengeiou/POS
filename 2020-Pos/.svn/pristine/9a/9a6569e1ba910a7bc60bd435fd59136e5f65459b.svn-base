@@ -1,0 +1,369 @@
+package com.epro.pos.ui.fragment.settings;
+
+import android.app.Dialog
+import android.graphics.Color
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.Gravity
+import android.view.View
+import android.widget.TextView
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener
+import com.bigkoo.pickerview.view.OptionsPickerView
+import com.epro.pos.R
+import com.epro.pos.listener.FragmentChanageEvent
+import com.epro.pos.listener.PhoneNumChangeEvent
+import com.epro.pos.mvp.contract.EditBaseInfoContract
+import com.epro.pos.mvp.model.bean.BusinessBaseInfoBean
+import com.epro.pos.mvp.model.bean.SearchAddressBean
+import com.epro.pos.mvp.model.bean.UpdateBusinessBaseBean
+import com.epro.pos.mvp.presenter.EditBaseInfoPresenter
+import com.epro.pos.ui.fragment.EditBindPhonePopup
+import com.epro.pos.ui.view.GeneralModifyPop
+import com.epro.pos.utils.PosConst
+import com.epro.pos.utils.ThreeLevelLinkage
+import com.mike.baselib.fragment.BaseTitleBarCustomFragment
+import com.mike.baselib.listener.ShopInfoChange
+import com.mike.baselib.utils.AppBusManager
+import com.mike.baselib.utils.DisplayManager
+import com.mike.baselib.utils.ToastUtil.Companion.showToast
+import com.mike.baselib.utils.ValidateUtils
+import com.mike.baselib.view.CommonDialog
+import kotlinx.android.synthetic.main.activity_edit_base_info.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
+
+class EditBaseInfoFragment : BaseTitleBarCustomFragment<EditBaseInfoContract.View, EditBaseInfoPresenter>(), EditBaseInfoContract.View, View.OnClickListener {
+
+    override fun onClick(v: View?) {
+        when(v){
+
+            getLeftView()->{
+                var status = getEditStatus()
+                if (status){
+                        showTipsDialog()
+                }else{
+                    var msg = FragmentChanageEvent()
+                    msg.postion = 13
+                    msg.level = 3
+                    msg.type = 2
+                    EventBus.getDefault().postSticky(msg)
+                }
+            }
+
+            areaSelect->{
+                if (ThreeLevelLinkage.isLoaded){
+                    ThreeLevelLinkage.showPickerView(activity!!,areaSelect)
+                }
+            }
+            //详细地址
+            detailAddress->{ showGeneralPop(getString(R.string.detail_address)) }
+            //门店名称
+            tvStore->{ showGeneralPop(getString(R.string.store_name)) }
+            //所属行业
+            industrySelect->{
+                if (pvOptions2 != null) {
+                    pvOptions2?.show()
+                }
+            }
+            //联系人
+            tvContact->{showGeneralPop(getString(R.string.contract_person))}
+            //手机号
+            tvPhoneNum->{showBindDialog()}
+            //邮箱地址
+            tvEmailAddress->{showGeneralPop(getString(R.string.email_address))}
+            //确认更新
+            getRightView()->{
+            val areaSelect = areaSelect.text.toString().trim()
+            val shopName = tvStore.text.toString().trim()
+            val shopType = industrySelect.text.toString().trim()
+            val province = areaSelect.split(" ")[0]
+            val city =areaSelect.split(" ")[1]
+            val area =areaSelect.split(" ")[2]
+            val address = detailAddress.text.toString().trim()
+            val owner =  tvContact.text.toString().trim()
+            var mobile = tvPhoneNum.text.toString().trim()
+             if (mobile.startsWith("+86")){
+                 mobile = mobile.substring(3)
+             }else if (mobile.startsWith("+852")){
+                 mobile = mobile.substring(4)
+             }
+            if (!ValidateUtils.validatePhoneNo(mobile)) {
+                showToast(getString(R.string.phone_num_wrong_format))
+                 return
+            }
+            if (mobile.startsWith("6")||mobile.startsWith("9")){
+                mobile = "+852_$mobile"
+            }else{
+                mobile = "+86_$mobile"
+            }
+            val email =tvEmailAddress.text.toString().trim()
+            if(!ValidateUtils.validateEmail(email)){
+                 showToast(getString(R.string.email_format_wrong))
+                 return
+            }
+             mPresenter.updateBusinessBaseInfo(PosConst.UPDATE_BUSINESS_BASE_INFO,address,"龙岗区","14","深圳市","4",email,beanInfo!!.id,"650","230",mobile,owner,"广东","2",beanInfo!!.shopId,shopName,shopType,"1")
+            }
+        }
+    }
+
+    private fun showBindDialog() {
+        val fragment = EditBindPhonePopup.newInstance("")
+        fragment.show(childFragmentManager, "edit_phone")
+    }
+
+    private fun showTipsDialog() {
+        CommonDialog.Builder(activity!!)
+                .setTitle(getString(R.string.alert))
+                .setContent(getString(R.string.edit_base_tips_content))
+                .setConfirmText(getString(R.string.out_this_page))
+                .setCancelText(getString(R.string.delete_dialog_cancel))
+                .setOnConfirmListener(object : CommonDialog.OnConfirmListener {
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                        var msg = FragmentChanageEvent()
+                        msg.postion = 13
+                        msg.level = 3
+                        msg.type = 2
+                        EventBus.getDefault().postSticky(msg)
+                    }
+                })
+                .setOnCancelListener(object :CommonDialog.OnCancelListener{
+                    override fun onClick(dialog: Dialog) {
+                       dialog.dismiss()
+                    }
+                })
+                .create()
+                .show()
+    }
+
+    private fun getEditStatus() :Boolean {
+        var shopId = storeId.text.toString()
+        var shopName = tvStore.text.toString()
+        var shopType  = industrySelect.text.toString()
+        var area = areaSelect.text.toString()
+        var address = detailAddress.text.toString()
+        var owner = tvContact.text.toString()
+        var mobile = tvPhoneNum.text.toString()
+        var email = tvEmailAddress.text.toString()
+        if (shopId != beanInfo?.shopId || shopName != beanInfo?.shopName || shopType != beanInfo?.shopType || area != beanInfo?.province+" "+beanInfo?.city+" "+beanInfo?.area || address != beanInfo?.address ||
+                owner != beanInfo?.owner || mobile != beanInfo?.mobile || email != beanInfo?.email){
+            return true
+        }
+        return false
+    }
+
+    companion object {
+        const val TAG = "EditBaseInfo"
+        fun newInstance(str: String): EditBaseInfoFragment {
+            val args = Bundle()
+            args.putString(TAG, str)
+            val fragment = EditBaseInfoFragment()
+            fragment.setArguments(args)
+            return fragment
+        }
+
+        fun newInstance(): EditBaseInfoFragment {
+            return newInstance("")
+        }
+    }
+
+    override fun getPresenter(): EditBaseInfoPresenter {
+        return EditBaseInfoPresenter()
+    }
+
+    override fun onEditBaseInfoSuccess(result: UpdateBusinessBaseBean) {
+        //店铺名改变
+        AppBusManager.setShopName(tvStore.text.toString().trim())
+        var event = ShopInfoChange()
+        event.name = tvStore.text.toString().trim()
+        EventBus.getDefault().postSticky(event)
+
+        var msg = FragmentChanageEvent()
+        msg.postion = 13
+        msg.level = 3
+        msg.type = 2
+        EventBus.getDefault().postSticky(msg)
+    }
+
+    //地址查询
+    override fun onSearchAddressSuccess(result: SearchAddressBean.Result) {
+         logTools.t("YB").d(" result : "+result)
+    }
+
+    override fun layoutContentId(): Int {
+        return R.layout.activity_edit_base_info
+    }
+
+    override fun initData() {
+
+    }
+
+    var beanInfo :BusinessBaseInfoBean.Result?=null
+    override fun onBusinessInfoSuccess(result: BusinessBaseInfoBean.Result) {
+        storeId.text = result.shopId
+        tvStore.text = result.shopName
+        industrySelect.text =  result.shopType
+        areaSelect.text = result.province+" "+result.city+" "+result.area
+        detailAddress.text = result.address
+        tvContact.text = result.owner
+        tvPhoneNum.text = result.mobile
+        tvEmailAddress.text = result.email
+        beanInfo = result
+    }
+    override fun initView() {
+        super.initView()
+        setHaveBackView(true)
+        mPresenter.BusinessBaseInfo(PosConst.BUSINESS_BASE_INFO)
+        ThreeLevelLinkage.initThreadWork(activity)
+        getLeftTitleView().text = getString(R.string.business_information)
+        getTitleView().text = getString(R.string.Qualification_info)
+        getRightView().visibility = View.VISIBLE
+        getRightView().text = getString(R.string.confirm_update)
+        getRightView().setTextColor(resources.getColor(R.color.mainColor))
+        /*getOptionData()*/
+        initOptionPicker()
+        initOptionPicker2()
+    }
+
+    override fun initListener() {
+        getLeftView().setOnClickListener(this)
+        getRightView().setOnClickListener(this)
+        //门店ID
+        storeId.setOnClickListener(this)
+        //门店名称
+        tvStore.setOnClickListener(this)
+        //区域地址
+        areaSelect.setOnClickListener(this)
+        //详细地址
+        detailAddress.setOnClickListener(this)
+        //所属行业
+        industrySelect.setOnClickListener(this)
+        //联系人
+        tvContact.setOnClickListener(this)
+        //手机号
+        tvPhoneNum.setOnClickListener(this)
+        //邮箱地址
+        tvEmailAddress.setOnClickListener(this)
+    }
+
+    override fun lazyLoad() {
+
+    }
+
+    //其他弹框修改
+    private fun showGeneralPop(title:String) {
+        val pop = GeneralModifyPop(activity!!)
+        pop.popupGravity = Gravity.CENTER
+        pop.setWidth(DisplayManager.getScreenWidth()!!*45/100)
+        pop.setHeight(DisplayManager.getScreenHeight()!!*61/100)
+        pop.showPopupWindow()
+        pop.contentView.findViewById<TextView>(R.id.tvPopTitle).text = title.substring(0,title.length-1)
+        pop.contentView.findViewById<TextView>(R.id.tvName).text = title
+        pop.contentView.findViewById<TextView>(R.id.tvPopCancel).setOnClickListener {
+            pop.dismiss()
+        }
+
+        //保存按钮随输入框变换
+        pop.contentView.findViewById<TextView>(R.id.tvInput).addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                var flag = true
+                val tvRight =pop.contentView.findViewById<TextView>(R.id.tvPopRight)
+                val tvInput = pop.contentView.findViewById<TextView>(R.id.tvInput)
+                flag = TextUtils.isEmpty(tvInput.text.toString().trim())
+                tvRight.setTextColor(if (!flag)resources.getColor(R.color.mainColor) else resources.getColor(R.color.main_50) )
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+
+        pop!!.contentView.findViewById<TextView>(R.id.tvPopRight).setOnClickListener {
+            pop.dismiss()
+            var mText =  pop.contentView.findViewById<TextView>(R.id.tvInput).text.toString().trim()
+            when(title){
+                getString(R.string.detail_address)->{
+                    detailAddress.text = mText
+                }
+                getString(R.string.store_name)->{
+                    tvStore.text = mText
+                }
+                getString(R.string.contract_person)->{
+                    tvContact.text = mText
+                }
+                getString(R.string.phone_num)->{
+                    tvPhoneNum.text = mText
+                }
+                getString(R.string.email_address)->{
+                    tvEmailAddress.text = mText
+                }
+            }
+        }
+    }
+
+    private fun initOptionPicker() {
+        val res = resources
+        val defaultStringArray_5 = res.getTextArray(R.array.business_scope)
+        //所属行业
+        for (index in defaultStringArray_5.indices) {
+            options3Items.add(defaultStringArray_5[index].toString())
+        }
+    }
+
+
+    /**
+     * 所属行业
+     */
+    var pvOptions2: OptionsPickerView<String>? = null
+    //经营范围
+    var options3Items = ArrayList<String>()
+    private fun initOptionPicker2() {
+
+        pvOptions2 = OptionsPickerBuilder(activity!!, OnOptionsSelectListener { options1, options2, options3, v ->
+            //返回的分别是三个级别的选中位置
+            var tx = options3Items[options1]
+            industrySelect.setText(tx)
+        })
+                .setContentTextSize(20)//设置滚轮文字大小
+                .setDividerColor(Color.parseColor("#e5e5e5"))//设置分割线的颜色
+                .setSelectOptions(0, 1)//默认选中项
+                .setBgColor(Color.WHITE)
+                .setTitleBgColor(Color.WHITE)
+                .setTitleColor(Color.parseColor("#333333"))
+                .setCancelColor(Color.parseColor("#333333"))
+                .setSubmitColor(Color.parseColor("#E52020"))
+                .setTextColorCenter(Color.parseColor("#333333"))
+                .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .setLabels("", "", "")
+                .setOutSideColor(Color.WHITE) //设置外部遮罩颜色
+                .setSubmitText(getString(R.string.dialog_done))
+                .setCancelText(getString(R.string.delete_dialog_cancel))
+                .setTitleSize(18)
+                .setBackgroundId(Color.parseColor("#ffffff"))
+                .setOptionsSelectChangeListener { options1, options2, options3 ->
+                    val str = "options1: $options1\noptions2: $options2\noptions3: $options3"
+                    //   Toast.makeText(this@MainActivity, str, Toast.LENGTH_SHORT).show()
+                }
+                .build<String>()
+
+//        pvOptions.setSelectOptions(1,1);
+        pvOptions2!!.setPicker(options3Items);//一级选择器*/
+
+       // pvOptions2!!.setPicker(options1Items, options2Items)//二级选择器
+        /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    fun onPhoneChanage(event: PhoneNumChangeEvent) {
+        tvPhoneNum.text = event.phone
+    }
+}
+
+

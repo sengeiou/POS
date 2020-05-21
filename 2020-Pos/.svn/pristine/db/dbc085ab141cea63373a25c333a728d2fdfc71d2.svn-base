@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.bingoogolapple.qrcode.zbar.ZBarView
+        android:id="@+id/zScanview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:qrcv_animTime="1000"
+        app:qrcv_borderColor="@color/secondaryTextColor"
+        app:qrcv_borderSize="2dp"
+        app:qrcv_cornerColor="@color/mainColor"
+        app:qrcv_isOnlyDecodeScanBoxArea="true"
+        app:qrcv_cornerLength="26dp"
+        app:qrcv_cornerSize="4dp"
+        app:qrcv_maskColor="#33FFFFFF"
+        app:qrcv_rectWidth="320dp"
+        app:qrcv_scanLineColor="@color/mainColor"
+        app:qrcv_scanLineSize="3dp"
+        app:qrcv_verticalBias="0.5" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:id="@+id/llQrcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/scan_qr_code_to_pay_me"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivQrcode"
+            android:layout_width="265dp"
+            android:layout_height="265dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/erweima_2" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/cancel"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/titleTextSize" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/rbScanPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="250dp"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_radiobutton_scan"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/scan_code_receipt"
+            android:textColor="@color/radiobutton_color"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="" />
+
+        <RadioButton
+            android:id="@+id/rbQrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_radiobutton_qrcode"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/payment_with_qr_code"
+            android:textColor="@color/radiobutton_color"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="" />
+    </RadioGroup>
+</RelativeLayout>

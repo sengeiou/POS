@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!-- Base application theme. -->
+    <style name="comp_login_AppTheme_NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <item name="colorPrimary">@color/comp_login_purple_d7a6fc</item>
+        <item name="colorPrimaryDark">@color/comp_login_white</item>
+        <item name="colorAccent">@color/comp_login_purple_d7a6fc</item>
+    </style>
+</resources>

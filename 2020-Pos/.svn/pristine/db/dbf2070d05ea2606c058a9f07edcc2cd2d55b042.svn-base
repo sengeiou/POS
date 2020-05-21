@@ -1,0 +1,314 @@
+package com.epro.pos.ui.fragment;
+
+import android.os.Bundle
+import android.support.v4.app.FragmentTransaction
+import android.text.TextUtils
+import android.util.Log
+import android.view.View
+import com.epro.pos.R
+import com.epro.pos.listener.FragmentChanageEvent
+import com.epro.pos.mvp.contract.SystemSettingsContract
+import com.epro.pos.mvp.presenter.SystemSettingsPresenter
+import com.epro.pos.ui.fragment.settings.*
+import com.epro.pos.ui.fragment.settings.HistoryRecordFragment
+import com.epro.pos.ui.fragment.settings.ProblemSolveFragment
+import com.epro.pos.utils.PosConst
+import com.mike.baselib.fragment.BaseCustomFragment
+import com.mike.baselib.fragment.BaseTitleBarCustomFragment
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
+class SystemSettingsFragment : BaseCustomFragment<SystemSettingsContract.View, SystemSettingsPresenter>(), SystemSettingsContract.View, View.OnClickListener {
+
+    private var mAccountSetFragment = AccountSetFragment()
+    private var mPersonCenterFragment = PersonCenterFragment()
+    private var mBusinessInfoFragment = BusinessInfoFragment()
+    private var mHelpCenterFragment = HelpCenterFragment()
+    private var mLanguageChangeFragment = LanguageChangeFragment()
+    private var mAboutUsFragment = AboutUsFragment()
+    private var mUpdateVersionFragment = UpdateVersionFragment()
+    private var mFeedbackFragment = FeedbackFragment()
+    private var mUnBindPhoneFragment = UnBindPhoneFragment()
+    private var mHistoryRecordFragment = HistoryRecordFragment()
+    private var mHistoryDetialFragment = HistoryDetailFragment()
+    private var mProblemSolveFragment = ProblemSolveFragment()
+    private var mModifyPasswordFragment = ModifyPasswordFragment()
+    private var mEditBaseInfoFragment = EditBaseInfoFragment()
+    private var mQualificationInfoFragment = QualificationInfoFragment()
+
+    override fun onClick(v: View?) {
+        when(v){
+
+        }
+    }
+
+    companion object {
+        const val TAG = "SystemSettings"
+        const val EXTRA="extra"
+        fun newInstance(str: String,extra:String=""): SystemSettingsFragment {
+            val args = Bundle()
+            args.putString(TAG, str)
+            args.putString(EXTRA, extra)
+            val fragment = SystemSettingsFragment()
+            fragment.setArguments(args)
+            return fragment
+        }
+
+        fun newInstance(): SystemSettingsFragment {
+            return newInstance("")
+        }
+    }
+
+    override fun getPresenter(): SystemSettingsPresenter {
+        return SystemSettingsPresenter()
+    }
+
+    override fun onSystemSettingsSuccess() {
+    }
+
+
+    override fun layoutContentId(): Int {
+        return R.layout.system_settings_fragment
+    }
+
+
+    override fun initData() {
+
+    }
+
+
+    override fun initView() {
+        super.initView()
+        logTools.t("YB").d(" SystemSettingsFragment initView")
+        childFragmentManager.beginTransaction().replace(R.id.flSystem, mAccountSetFragment, AccountSetFragment::class.java.simpleName).commitAllowingStateLoss()
+        showChildFragment()
+    }
+
+    private fun showChildFragment() {
+        val childTag = arguments?.getString(TAG)
+        val extra = arguments?.getString(EXTRA)
+        logTools.t("YB").d(" System showChild extra: "+extra+" childTag : "+childTag)
+        if (!TextUtils.isEmpty(childTag)) {
+            when(childTag){
+                //跳转商户资料
+                PosConst.BUSINESS_BASE_INFO->{
+                    val fragment = childFragmentManager.findFragmentByTag(childTag)
+                    if (fragment == null) {
+                        childFragmentManager.beginTransaction().replace(R.id.flSystem,
+                                BusinessInfoFragment.newInstance(childTag!!,extra!!) ,BusinessInfoFragment::class.java.simpleName).commitAllowingStateLoss()
+                        arguments?.putString(TAG,"")
+                    }
+                }
+                //意见反馈
+                PosConst.COMMIT_FEEDBACK->{
+                    val fragment = childFragmentManager.findFragmentByTag(childTag)
+                    if (fragment == null) {
+                        childFragmentManager.beginTransaction().replace(R.id.flSystem,
+                                FeedbackFragment.newInstance(childTag!!,extra!!) ,FeedbackFragment::class.java.simpleName).commitAllowingStateLoss()
+                        arguments?.putString(TAG,"")
+                    }
+                }
+                //版本更新
+                PosConst.VERSION_UPDATE->{
+                    val fragment = childFragmentManager.findFragmentByTag(childTag)
+                    if (fragment == null) {
+                        childFragmentManager.beginTransaction().replace(R.id.flSystem,
+                                UpdateVersionFragment.newInstance(childTag!!,extra!!) ,UpdateVersionFragment::class.java.simpleName).commitAllowingStateLoss()
+                        arguments?.putString(TAG,"")
+                    }
+                }
+            }
+
+        }
+    }
+
+    override fun initListener() {
+    }
+
+    override fun lazyLoad() {
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    var mPostion:Int = -1
+    //布局层级
+    var mLevel:Int = -1
+    var mType :Int = -1
+    var mFrom :String ?=null
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    fun onClickItem(msg: FragmentChanageEvent){
+        mPostion  = msg.postion
+        mLevel = msg.level
+        mType = msg.type
+        mFrom = msg.from
+        logTools.t("YB").d("system  onClickItem : "+msg.from)
+        switchFragment()
+    }
+
+    private fun switchFragment() {
+        val transaction =childFragmentManager.beginTransaction()
+        when(mPostion){
+            0->{
+                //设置个人中心
+                transaction.replace(R.id.flSystem,mPersonCenterFragment,PersonCenterFragment::class.java.simpleName)
+            }
+            1->{
+                //设置商户资料
+                if (!TextUtils.isEmpty(mFrom)){
+                    var setFrom = mFrom!!.split("_")
+                    if (setFrom[0].equals(MessageCenterFragment.TAG)){        //消息中心跳转
+                        val childTag = "tab_settings"
+                        val fragment = childFragmentManager.findFragmentByTag(childTag)
+                        if (fragment == null) {
+                            childFragmentManager.beginTransaction().replace(R.id.flSystem,
+                                    BusinessInfoFragment.newInstance(childTag!!,setFrom[0]!!) ,BusinessInfoFragment::class.java.simpleName).commitAllowingStateLoss()
+                            arguments?.putString(TAG,"")
+                        }
+                    }else if (setFrom[0].equals(HomeFragment.TAG)) {       //首页跳转
+                        val childTag = "tab_settings"
+                        val fragment = childFragmentManager.findFragmentByTag(childTag)
+                        if (fragment == null) {
+                            childFragmentManager.beginTransaction().replace(R.id.flSystem,
+                                    BusinessInfoFragment.newInstance(childTag!!, mFrom!!), BusinessInfoFragment::class.java.simpleName).commitAllowingStateLoss()
+                            arguments?.putString(TAG, "")
+                        }
+                    }
+                }else{
+                    transaction.replace(R.id.flSystem,mBusinessInfoFragment,BusinessInfoFragment::class.java.simpleName)
+                }
+            }
+            2-> {
+                //设置意见反馈
+                if (!TextUtils.isEmpty(mFrom)) {
+                    var msgFrom = mFrom!!.split("_")
+                    if (msgFrom[0].equals(MessageCenterFragment.TAG)) {    //消息中心跳转
+                        val childTag = "tab_settings"
+                        val fragment = childFragmentManager.findFragmentByTag(childTag)
+                        if (fragment == null) {
+                            childFragmentManager.beginTransaction().replace(R.id.flSystem,
+                                    FeedbackFragment.newInstance(childTag!!,msgFrom[0]!!) ,FeedbackFragment::class.java.simpleName).commitAllowingStateLoss()
+                            arguments?.putString(TAG,"")
+                        }
+                    }
+                }else {
+                    transaction.replace(R.id.flSystem, mFeedbackFragment, FeedbackFragment::class.java.simpleName)
+                }
+            }
+            3->{
+                //设置帮助中心
+                transaction.replace(R.id.flSystem,mHelpCenterFragment,HelpCenterFragment::class.java.simpleName)
+            }
+            4->{
+                //设置语言切换
+                transaction.replace(R.id.flSystem,mLanguageChangeFragment,LanguageChangeFragment::class.java.simpleName)
+            }
+            5->{
+                //设置关于我们
+                transaction.replace(R.id.flSystem,mAboutUsFragment,AboutUsFragment::class.java.simpleName)
+            }
+            6->{
+                //设置检查更新
+                transaction.replace(R.id.flSystem,mUpdateVersionFragment,UpdateVersionFragment::class.java.simpleName)
+            }
+            7->{
+                //个人中心，修改密码
+                transaction.hide(mPersonCenterFragment)
+                 transaction.add(R.id.flSystem,mModifyPasswordFragment , ModifyPasswordFragment::class.java.simpleName)
+            }
+            8->{
+                //个人中心，账号绑定
+                transaction.hide(mPersonCenterFragment)
+                transaction.add(R.id.flSystem, mUnBindPhoneFragment, UnBindPhoneFragment::class.java.simpleName)
+            }
+            9->{
+                //商户资料，编辑基本资料
+                transaction.hide(mBusinessInfoFragment)
+                transaction.add(R.id.flSystem,mEditBaseInfoFragment , EditBaseInfoFragment::class.java.simpleName)
+            }
+            10->{
+                //意见反馈，历史记录
+                transaction.hide(mFeedbackFragment)
+                transaction.add(R.id.flSystem,mHistoryRecordFragment , HistoryRecordFragment::class.java.simpleName)
+            }
+            11->{
+                //意见反馈，历史记录详细
+                transaction.hide(mHistoryRecordFragment)
+                transaction.hide(mFeedbackFragment)
+                transaction.add(R.id.flSystem,mHistoryDetialFragment , HistoryDetailFragment::class.java.simpleName)
+            }
+            12->{
+                //帮助中心，问题解答
+                transaction.hide(mHelpCenterFragment)
+                transaction.add(R.id.flSystem,mProblemSolveFragment , ProblemSolveFragment::class.java.simpleName)
+            }
+            13->{
+                //13默认设置返回键
+                if (1 == mLevel){
+                    transaction.replace(R.id.flSystem, mAccountSetFragment, AccountSetFragment::class.java.simpleName)
+                }else if (2 == mLevel){
+                    backTwoLevelUI(mType,transaction)
+                }else if(3 == mLevel){
+                    backThreeLevelUI(mType,transaction)
+                }else{
+                    transaction.replace(R.id.flSystem, mAccountSetFragment, AccountSetFragment::class.java.simpleName)
+                }
+            }
+            14->{
+                //商户资料，编辑资质信息
+                transaction.hide(mBusinessInfoFragment)
+                transaction.add(R.id.flSystem,mQualificationInfoFragment , QualificationInfoFragment::class.java.simpleName)
+            }
+        }
+        transaction.commitAllowingStateLoss()
+    }
+
+
+    //3级返回界面处理
+    private fun backThreeLevelUI(mType: Int, transaction: FragmentTransaction) {
+
+        if (1 == mType){
+            //编辑资质信息返回
+            transaction.remove(mQualificationInfoFragment)
+            transaction.show(mBusinessInfoFragment)
+        }else if (2 == mType){
+            //编辑基本信息返回
+            transaction.remove(mEditBaseInfoFragment)
+            transaction.show(mBusinessInfoFragment)
+        }else if (3==mType){
+          transaction.remove(mHistoryDetialFragment)
+          transaction.show(mHistoryRecordFragment)
+      }else{
+          transaction.replace(R.id.flSystem, mAccountSetFragment, AccountSetFragment::class.java.simpleName)
+      }
+    }
+
+    //2级返回界面处理
+    private fun backTwoLevelUI(mType:Int,transaction: FragmentTransaction) {
+       if (1 == mType){
+           //绑定手机返回个人中心
+           transaction.remove(mUnBindPhoneFragment)
+           transaction.show(mPersonCenterFragment)
+       }else if (2 == mType){
+           //修改密码界面返回个人中心
+           transaction.remove(mModifyPasswordFragment)
+           transaction.show(mPersonCenterFragment)
+       }else if (3 == mType){
+           //历史记录界面，返回意见反馈界面
+           transaction.remove(mHistoryRecordFragment)
+           transaction.show(mFeedbackFragment)
+       }else if (4 == mType){
+           //问题解答界面，返回意见反馈界面
+           transaction.remove(mProblemSolveFragment)
+           transaction.show(mHelpCenterFragment)
+       }else{
+           transaction.replace(R.id.flSystem, mAccountSetFragment, AccountSetFragment::class.java.simpleName)
+       }
+    }
+
+}
+
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_chinese_fan">繁體中文</string>
+    <string name="language_chinese_simple">简单中文</string>
+    <string name="language_english">English</string>
+    <string name="home_statistics">首页统计</string>
+</resources>

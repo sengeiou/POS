@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:orientation="horizontal">
+    <TextView
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pending_order_time"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/contentTextSize" />
+    <EditText
+        android:textSize="@dimen/contentTextSize"
+        android:id="@+id/edtReason"
+        android:layout_toStartOf="@+id/ivIcon"
+        android:layout_toEndOf="@+id/tvContent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:padding="5dp"
+        android:layout_centerVertical="true"
+        android:hint="@string/pls_input_cancel_reason"
+        android:textColor="@color/thirdTextColor"
+        android:text=""
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:src="@mipmap/select"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="24dp"
+        android:layout_height="24dp" />
+    <View
+        android:layout_alignParentBottom="true"
+        android:background="@color/lineColor"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>

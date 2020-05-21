@@ -1,0 +1,245 @@
+package com.epro.pos.ui.fragment
+
+import android.app.Dialog
+import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
+import android.util.Log
+import android.view.View
+import android.widget.RadioGroup
+import com.epro.pos.R
+import com.epro.pos.listener.BackStageCurrentTabChangeEvent
+import com.epro.pos.mvp.contract.HomeContract
+import com.epro.pos.mvp.model.bean.*
+import com.epro.pos.mvp.presenter.HomePresenter
+import com.epro.pos.ui.adapter.MyBusinessAdapter
+import com.epro.pos.ui.adapter.SaleStatisticsAdapter
+import com.epro.pos.ui.adapter.WaitdoAdapter
+import com.epro.pos.utils.PosBusManager
+import com.epro.pos.utils.PosConst
+import com.google.gson.reflect.TypeToken
+import com.mike.baselib.fragment.BaseTitleBarCustomFragment
+import com.mike.baselib.utils.*
+import com.mike.baselib.view.CommonDialog
+import kotlinx.android.synthetic.main.fragment_home.*
+import org.greenrobot.eventbus.EventBus
+import kotlin.math.log
+
+
+class HomeFragment : BaseTitleBarCustomFragment<HomeContract.View, HomePresenter>(), HomeContract.View {
+    override fun onGetHomeSalesSuccess(result: GetHomeSalesBean.Result) {
+        val sales = result
+        val salesList = ArrayList<Item>()
+        val salesInfo = arrayListOf(sales.totalAmount, sales.offLineAmount,
+                sales.onlineAmount, sales.totalCount, sales.offLineCount, sales.onlineCount)
+        for (i in salesIcons.indices) {
+            salesList.add(Item(salesIcons[i], getString(salesTitles[i])).valueContent2(salesInfo[i]))
+        }
+        salesAdapter!!.setData(salesList)
+    }
+
+    override fun onGetWaitdoListSuccess(result: GetWaitdoListBean.Result) {
+        val waitdo = result
+        val waitdoList = ArrayList<WaitdoItem>()
+        val waitdoInfo = arrayListOf(waitdo.waitDeliveryCount, waitdo.waitPickUpCount,
+                waitdo.frozenCount, waitdo.renewCount, waitdo.updateCount)
+        for (i in waitdoTitles.indices) {
+            waitdoList.add(WaitdoItem(i, getString(waitdoTitles[i]), waitdoBgs[i]).valueTextColor(textColors[i]).valueContent2(waitdoInfo[i]))
+        }
+        waitdoAdapter!!.setData(waitdoList)
+    }
+
+
+    override fun onGetMybusinessSuccess(business:Any) {
+        val businessList = ArrayList<Item>()
+       if (!TextUtils.isEmpty(business.toString())){
+           val type = object : TypeToken<ArrayList<GetMyBusinessBean.Business>>() {}.type
+           val  mBusiness =  AppBusManager.fromJson<ArrayList<GetMyBusinessBean.Business>>(AppBusManager.toJson(business),type)
+            val businessInfo = arrayListOf(mBusiness!![0].productNumber, mBusiness!![0].stockNumber, mBusiness!![0].buyingPrice.ext_formatAmountWithUnit(), mBusiness!![0].stockEarlyNum)
+           for (i in businessIcons.indices) {
+                businessList.add(Item(businessIcons[i], getString(businessTitles[i])).valueContent2(businessInfo[i]))
+            }
+        }
+        businessAdapter!!.setData(businessList)
+    }
+
+    companion object {
+        const val TAG = "HomeFragment"
+        fun newInstance(str: String): HomeFragment {
+            val args = Bundle()
+            args.putString(TAG, str)
+            val fragment = HomeFragment()
+            fragment.arguments = args
+            return fragment
+        }
+
+        fun newInstance(): HomeFragment {
+            return newInstance("")
+        }
+    }
+
+    override fun lazyLoad() {
+        mPresenter.getMyBusiness(PosConst.GET_MY_BUSINESS)
+        mPresenter.getHomeSales(timeType.toString(), PosConst.GET_SALES)
+        mPresenter.getWaitdoList(PosConst.GET_WAITDO_LIST)
+    }
+
+    override fun layoutContentId(): Int {
+        return R.layout.fragment_home
+    }
+
+    override fun getPresenter(): HomePresenter {
+        return HomePresenter()
+    }
+
+
+    override fun initView() {
+        super.initView()
+        getLeftView().visibility = View.GONE
+        getTitleView().text = getString(R.string.home_statistics)
+        setRefreshEnable(true)
+    }
+
+    val salesTitles = arrayOf(R.string.home_sale_title_1,R.string.home_sale_title_2,R.string.home_sale_title_3,R.string.home_sale_title_4,R.string.home_sale_title_5,R.string.home_sale_title_6)
+
+    val salesIcons = arrayOf(R.mipmap.icon_sales1, R.mipmap.icon_sales2, R.mipmap.icon_sales3, R.mipmap.icon_sales4, R.mipmap.icon_sales5, R.mipmap.icon_sales6)
+    var salesAdapter: SaleStatisticsAdapter? = null
+    var businessAdapter: MyBusinessAdapter? = null
+    val businessTitles = arrayOf(R.string.my_job_1, R.string.my_job_2,R.string.my_job_3, R.string.my_job_4)
+    val businessIcons = arrayOf(R.mipmap.icon_mybusiness1, R.mipmap.icon_mybusiness2, R.mipmap.icon_mybusiness3, R.mipmap.home_warn)
+
+
+    val waitdoTitles = arrayOf(R.string.to_do_list_1, R.string.to_do_list_2,R.string.to_do_list_3, R.string.to_do_list_4, R.string.to_do_list_5)
+    var waitdoAdapter: WaitdoAdapter? = null
+    val waitdoBgs = arrayOf(R.drawable.shape_tag_half_pink, R.drawable.shape_tag_half_yellow, R.drawable.shape_tag_half_gray, R.drawable.shape_tag_half_green, R.drawable.shape_tag_half_blue)
+    val textColors = arrayOf(R.color.pink_ff9292, R.color.yellow_ffbe00, R.color.gray_999999, R.color.green_67c8c7, R.color.blue_007aff)
+    override fun initData() {
+
+        //销售统计
+        val salesInfo = arrayListOf(0.00, 0.00, 0.00, 0, 0, 0)
+        var list = ArrayList<Item>()
+        for (i in salesTitles.indices) {
+            list.add(Item(salesIcons[i], getString(salesTitles[i])).valueContent2(salesInfo[i].toString()))
+        }
+        rvSale.layoutManager = GridLayoutManager(activity!!, 3)
+        salesAdapter = SaleStatisticsAdapter(activity!!, list)
+        rvSale.adapter = salesAdapter
+        salesAdapter!!.onItemClickListener = object : SaleStatisticsAdapter.OnItemClickListener {
+            override fun onClick(item: Item) {
+                if (item.icon == R.mipmap.icon_sales4 || item.icon == R.mipmap.icon_sales5 || item.icon == R.mipmap.icon_sales6) {
+                    val event = BackStageCurrentTabChangeEvent()
+                    event.position = 3
+                    event.action = PosConst.GET_ORDER_RECORD_LIST//表示跳转订单列表页面
+                    if (item.icon == R.mipmap.icon_sales4) {
+                        event.extra =TAG+"_"+PosConst.TRADE_TYPE_ALL.toString()+"_"+timeType
+                    }
+                    if (item.icon == R.mipmap.icon_sales5) {
+                        event.extra =TAG+"_"+ PosConst.TRADE_TYPE_OUTLINE.toString()+"_"+timeType
+                    }
+                    if (item.icon == R.mipmap.icon_sales6) {
+                        event.extra =TAG+"_"+ PosConst.TRADE_TYPE_ONLINE.toString()+"_"+timeType
+                    }
+                    EventBus.getDefault().post(event)
+                }
+            }
+        }
+
+        //我的业务
+        val businessInfo = arrayListOf(0, 0, 0.00, 0)
+        val businessList = ArrayList<Item>()
+        for (i in businessIcons.indices) {
+            businessList.add(Item(businessIcons[i], getString(businessTitles[i])).valueContent2(businessInfo[i].toString()))
+        }
+        businessAdapter = MyBusinessAdapter(activity!!, businessList)
+        rvGoods.layoutManager = GridLayoutManager(activity!!, 3)
+        rvGoods.adapter = businessAdapter
+        businessAdapter!!.onItemClickListener = object : MyBusinessAdapter.OnItemClickListener{
+            override fun onClick(item: Item, position: Int) {
+               if (3==position){
+                   val event = BackStageCurrentTabChangeEvent()
+                   event.position = 5
+                   event.action = PosConst.GET_STOCK_QUERY_LIST //库存查询
+                   event.extra = TAG+"_"+PosConst.GET_STOCK_QUERY_LIST.toString()
+                   EventBus.getDefault().post(event)
+               }
+            }
+        }
+
+        //待办事项
+        val waitdoList = ArrayList<WaitdoItem>()
+        for (i in waitdoTitles.indices) {
+            waitdoList.add(WaitdoItem(i, getString(waitdoTitles[i]), waitdoBgs[i]).valueTextColor(textColors[i]).valueContent2(0.toString()))
+        }
+        rvWaitDo.layoutManager = LinearLayoutManager(activity!!)
+        waitdoAdapter = WaitdoAdapter(activity!!, waitdoList)
+        waitdoAdapter!!.onItemClickListener=object :WaitdoAdapter.OnItemClickListener{
+            override fun onClick(item: WaitdoItem) {
+                logTools.d("do here")
+                if(0==item.id||1==item.id){
+                   val event = BackStageCurrentTabChangeEvent()
+                   event.position = 6
+                   event.action = PosConst.GET_NETSHOP_ONLINE_ORDER_LIST//表示跳转网店订单列表页面
+                   if (item.id == 0) {
+                       event.extra =TAG+"_"+PosConst.ONLINE_ORDER_STATUS_WAIT_DISTRIBUTION.toString()
+                   }
+                   if (item.id == 1) {
+                       event.extra =TAG+"_"+ PosConst.ONLINE_ORDER_STATUS_WAIT_SELFTAKE.toString()
+                   }
+                   EventBus.getDefault().post(event)
+               }else if(3 == item.id||4 == item.id){  //跳转系统设置
+                    val event = BackStageCurrentTabChangeEvent()
+                    event.position = 8
+                    event.action = PosConst.BUSINESS_BASE_INFO  //跳转商户资料界面
+                    event.extra = TAG+"_"+item.id
+                    EventBus.getDefault().post(event)
+                }else if (2 == item.id){   //冻结商品弹框提示
+                    showDailogView()
+               }
+            }
+        }
+        rvWaitDo.adapter = waitdoAdapter
+
+//        rvMessages.layoutManager = LinearLayoutManager(activity!!)
+//        rvMessages.adapter = SysMessageAdapter(activity!!, list)
+     //   ivIosQrcode.ext_loadImage(QRCodeUtil.getQrImagePath(activity!!, "epro", DisplayManager.dip2px(80F)!!, DisplayManager.dip2px(80F)!!, null),R.mipmap.ios_pad)
+     //   ivAndroidQrcode.ext_loadImage(QRCodeUtil.getQrImagePath(activity!!, "epro", DisplayManager.dip2px(80F)!!, DisplayManager.dip2px(80F)!!, null),R.mipmap.android_pad)
+    }
+
+    private fun showDailogView() {
+        CommonDialog.Builder(activity!!)
+                .setTitle(getString(R.string.title_dialog))
+                .setContent(getString(R.string.dialog_content))
+                .setConfirmText(getString(R.string.dialog_confirm))
+                .setOnConfirmListener(object : CommonDialog.OnConfirmListener {
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                    }
+                })
+                .setCancelIsVisibility(false)
+                .create()
+                .show()
+    }
+
+    var timeType = PosConst.DAY
+    override fun initListener() {
+        rgSale.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
+            override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
+                when (p1) {
+                    R.id.rbDay -> {
+                        mPresenter.getHomeSales(PosConst.DAY.toString(), PosConst.GET_SALES)
+                        timeType = PosConst.DAY
+                    }
+                    R.id.rbWeek -> {
+                        mPresenter.getHomeSales(PosConst.WEEK.toString(), PosConst.GET_SALES)
+                        timeType = PosConst.WEEK
+                    }
+                    R.id.rbMonth -> {
+                        mPresenter.getHomeSales(PosConst.MONTH.toString(), PosConst.GET_SALES)
+                        timeType = PosConst.MONTH
+                    }
+                }
+            }
+        })
+    }
+}

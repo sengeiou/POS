@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginStart="16dp">
+    <TextView
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/text_size_10"
+        android:text="*"
+        android:id="@+id/tvFlag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/tvFlag"
+        android:text=""
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/secondaryContentTextSize" />
+
+    <EditText
+        android:maxLines="2"
+        android:gravity="end|center_vertical"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/tvTitle"
+        android:id="@+id/etInput"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:textColor="@color/mainTextColor"
+        android:layout_alignParentEnd="true"
+        android:textColorHint="@color/thirdTextColor"
+        android:textSize="@dimen/secondaryContentTextSize"
+        android:hint="@string/pls_input"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:maxEms="20"
+        android:id="@+id/tvSelect"
+        android:visibility="gone"
+        android:drawablePadding="16dp"
+        android:textSize="@dimen/secondaryContentTextSize"
+        android:textColor="@color/mainTextColor"
+        android:text="@string/please_choose"
+        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:drawableEnd="@mipmap/icon_gray_arrow"/>
+
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lineColor" />
+</RelativeLayout>
+

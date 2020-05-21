@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bottomColor"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:layout_margin="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/shape_renew_bg_dottedline">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/llTextTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="12sp"
+             android:layout_gravity="center"
+             android:textColor="#3E81E3"
+             android:text="@string/join_time"/>
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:textColor="#3E81E3"
+            android:text=" 2019-09-08,"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:textColor="#3E81E3"
+            android:text=" @string/valid_until"/>
+        <TextView
+            android:id="@+id/tvValidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:textColor="#3E81E3"
+            android:text="2020-09-08，"/>
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:textColor="#3E81E3"
+            android:text=""/>
+
+     </LinearLayout>
+            <TextView
+                android:id="@+id/tvRenewNotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#3E81E3"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/received_your_renewal_notice"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/btnRenew"
+            android:layout_width="83dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/white"
+            android:text="@string/to_do_list_4"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:background="@drawable/renew_shape_btn"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            />
+    </RelativeLayout>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/mainMatchColor"
+        android:paddingLeft="16dp"
+        android:gravity="bottom|left"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbBInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableBottom="@drawable/shape_info_bottom_bg"
+            android:button="@null"
+            android:text="@string/base_info"
+            android:textColor="@color/mainColor"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:drawableBottom="@drawable/shape_info_bottom_bg_tra"
+            android:id="@+id/rbQInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="34dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:button="@null"
+            android:text="@string/qualification_info"
+            android:textColor="@color/mainTextColor"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E5E5E5"/>
+
+    <ViewFlipper
+        android:id="@+id/viewFlipperBInfo"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mainMatchColor"
+            android:orientation="vertical">
+            <TextView
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:layout_marginLeft="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mainTextColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/base_info"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/BusinessInfo"
+                android:text="@string/store_id"
+                />
+            <TextView
+                android:id="@+id/shopId"
+                style="@style/BusinessInfo2"
+                android:text=""
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/BusinessInfo"
+                android:text="@string/store_name"
+                />
+            <TextView
+                android:id="@+id/shopName"
+                style="@style/BusinessInfo2"
+                android:text=""
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/BusinessInfo"
+                android:text="@string/Industry_name"
+                />
+            <TextView
+                android:id="@+id/shopType"
+                style="@style/BusinessInfo2"
+                android:text=""
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/BusinessInfo"
+                android:text="@string/address_detail"
+                />
+            <TextView
+                android:id="@+id/address"
+                style="@style/BusinessInfo2"
+                android:text=""
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/BusinessInfo"
+                android:text="@string/contract_person"
+                />
+            <TextView
+                android:id="@+id/owner"
+                style="@style/BusinessInfo2"
+                android:text=""
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/BusinessInfo"
+                android:text="@string/phone_num"
+                />
+            <TextView
+                android:id="@+id/mobile"
+                style="@style/BusinessInfo2"
+                android:text=""
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/BusinessInfo"
+                android:text="@string/email_address"
+                />
+            <TextView
+                android:id="@+id/email"
+                style="@style/BusinessInfo2"
+                android:text=""
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+        </LinearLayout>
+            <Button
+                android:id="@+id/btnBupdate"
+                android:layout_width="136dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:text="@string/update_info"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/mainMatchColor"
+                android:background="@drawable/shape_btn_update_info"
+                />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ScrollView
+            android:id="@+id/slList"
+            android:layout_above="@+id/llUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/mainMatchColor"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/rlPrompt"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/shape_prompt_bg"
+                    android:layout_height="40dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@mipmap/prompt"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/promptImg"
+                        />
+                    <TextView
+                        android:id="@+id/promptText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#F69447"
+                        android:textSize="12sp"
+                        android:padding="12dp"
+                        android:layout_toRightOf="@+id/promptImg"
+                        android:gravity="center_horizontal"
+                        />
+                    <ImageView
+                        android:id="@+id/promptDelete"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@mipmap/prompt_delete"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="12dp"
+                        android:visibility="gone"
+                        />
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/llPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:paddingTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@mipmap/img_business" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="16dp"
+                        android:text="@string/in_order_not_to_affect_your_use"
+                        android:textColor="#F31B22" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingLeft="16dp"
+                    android:text="@string/subject_qualification"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/type_of_certificate" />
+
+                    <TextView
+                        android:id="@+id/registration"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="107dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:layout_weight="0.7"
+                        android:text="@string/id_card_photo" />
+
+                    <ImageView
+                        android:id="@+id/registrationPhoto"
+                        android:layout_width="78dp"
+                        android:layout_height="107dp"
+                        android:src="@mipmap/icard_image"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/validity_of_documents" />
+
+                    <TextView
+                        android:id="@+id/registrationValidity"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/registration_number" />
+
+                    <TextView
+                        android:id="@+id/registrationNo"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/legal_representative" />
+
+                    <TextView
+                        android:id="@+id/legalName"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/identification_number" />
+
+                    <TextView
+                        android:id="@+id/legalIdcar"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingLeft="16dp"
+                    android:text="@string/legal_representative_information"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="92dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:layout_weight="0.8"
+                        android:text="@string/handheld_id_card_front" />
+
+                    <ImageView
+                        android:id="@+id/idcarPositive"
+                        android:layout_width="158dp"
+                        android:layout_height="92dp"
+                        android:src="@mipmap/document"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="92dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:layout_weight="0.8"
+                        android:text="@string/handheld_identity_card_reverse" />
+
+                    <ImageView
+                        android:id="@+id/idcarNegative"
+                        android:layout_width="158dp"
+                        android:layout_height="92dp"
+                        android:src="@mipmap/document"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/validity_of_documents" />
+
+                    <TextView
+                        android:id="@+id/idcarValidity"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingLeft="16dp"
+                    android:text="@string/industry_qualification"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/permit_number" />
+
+                    <TextView
+                        android:id="@+id/licenseNo"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/type_of_certificate" />
+
+                    <TextView
+                        android:id="@+id/license"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="107dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:layout_weight="0.7"
+                        android:text="@string/id_card_photo" />
+
+                    <ImageView
+                        android:id="@+id/licensePhoto"
+                        android:layout_width="158dp"
+                        android:layout_height="92dp"
+                        android:src="@mipmap/document"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/BusinessInfo"
+                        android:text="@string/validity_of_documents" />
+
+                    <TextView
+                        android:id="@+id/licenseValidity"
+                        style="@style/BusinessInfo2"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+            <LinearLayout
+                android:id="@+id/llUpdate"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+            <Button
+                android:id="@+id/btnQupdate"
+                android:layout_width="136dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/shape_btn_update_info"
+                android:text="@string/update_info"
+                android:textColor="@color/mainMatchColor"
+                android:textSize="14sp" />
+            </LinearLayout>
+         </RelativeLayout>
+    </ViewFlipper>
+</LinearLayout>

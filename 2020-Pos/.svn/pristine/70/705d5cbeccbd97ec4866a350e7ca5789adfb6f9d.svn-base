@@ -1,0 +1,527 @@
+package com.epro.pos.ui.fragment
+
+import android.Manifest
+import android.app.Activity
+import android.app.Dialog
+import android.content.Intent
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.View
+import android.view.ViewGroup
+import com.epro.pos.R
+import com.epro.pos.listener.*
+import com.epro.pos.mvp.contract.CartContract
+import com.epro.pos.mvp.model.bean.CartProduct
+import com.epro.pos.mvp.model.bean.CheckoutOrder
+import com.epro.pos.mvp.model.bean.PendOrder
+import com.epro.pos.mvp.model.bean.Product
+import com.epro.pos.mvp.presenter.CartPresenter
+import com.epro.pos.ui.activity.ScanActivity
+import com.epro.pos.ui.adapter.CartProductAdapter
+import com.epro.pos.ui.adapter.SearchProductListAdapter
+import com.epro.pos.utils.PosBusManager
+import com.epro.pos.utils.PosConst
+import com.mike.baselib.fragment.BaseCustomFragment
+import com.mike.baselib.utils.*
+import com.mike.baselib.view.CommonDialog
+import com.mike.baselib.view.EmptyView
+import kotlinx.android.synthetic.main.fragment_cart.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import com.mike.baselib.utils.toast
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
+import kotlin.math.absoluteValue
+
+/**
+ * 收银购物栏页面
+ */
+class CartFragment : BaseCustomFragment<CartContract.View, CartPresenter>(), CartContract.View, View.OnClickListener {
+    override fun onClick(v: View?) {
+        when (v) {
+            //整单取消
+            btnCancel -> {
+                showWholeOrderCancel()
+            }
+            //挂单
+            btnPendOrder -> {
+                if (!isRefund) {
+                    if (adapter?.mData!!.size == 0) { //取单
+                        showPendOrderListDialog()
+                    } else {  //挂单
+                        val millis = System.currentTimeMillis()
+                        val pendOrder = PendOrder("" + millis, DateUtils.formatDate(millis), adapter?.mData!!)
+                        PosBusManager.setOnePendOrder(pendOrder)
+                        PosBusManager.clearCartProducts()
+                        refreshCashierCartUI()
+                        toast(getString(R.string.add_order_success))
+                    }
+                } else {
+                    showWholeOrderCancel()
+                }
+
+            }
+            //结账
+            btnCheckout -> {
+                showCheckoutDialog()
+            }
+            ivScan -> {
+                products = PosBusManager.getShopProductCategorys()
+                if (products.isEmpty()) {
+                    toast(getString(R.string.please_load_the_product_first))
+                    return
+                }
+                startScan()
+            }
+            ivSearch -> {
+                AppUtils.toggleKeyboard(activity!!)
+            }
+        }
+    }
+
+
+    companion object {
+        const val TAG = "CartFragment"
+        const val RC_CAMERA = 100
+        const val CASHIER_FUN = "cashier_fun"
+        const val FOR_GOODS = 10
+        fun newInstance(isRefund: Boolean): CartFragment {
+            val args = Bundle()
+            args.putBoolean(CASHIER_FUN, isRefund)
+            val fragment = CartFragment()
+            fragment.arguments = args
+            return fragment
+        }
+
+        fun newInstance(): CartFragment {
+            return newInstance(false)
+        }
+    }
+
+    var adapter: CartProductAdapter? = null
+    var isRefund = false
+    var totalCount = 0 //商品总数
+    var products = PosBusManager.getShopProductCategorys()
+    override fun initView() {
+        super.initView()
+        isRefund = arguments?.getBoolean(CASHIER_FUN)!!
+        PosBusManager.setRefund(isRefund)
+        val linearLayoutManager = LinearLayoutManager(activity!!)
+        rvList.layoutManager = linearLayoutManager
+        adapter = CartProductAdapter(activity!!, PosBusManager.getCartProducts())
+        rvList.adapter = adapter
+        adapter?.onItemClickListener = object : CartProductAdapter.OnItemClickListener {
+            override fun onClick(item: CartProduct) {
+
+            }
+        }
+        adapter?.onBuyNumChangeListener = object : CartProductAdapter.OnBuyNumChangeListener {
+            override fun onBuyNumChange(buyNum: Int, cartProduct: CartProduct) {
+                refreshAmount()
+                PosBusManager.setOneCartProduct(cartProduct!!, false)
+            }
+        }
+        adapter?.onDiscountChangeListener = object : CartProductAdapter.OnDiscountChangeListener {
+            override fun onDiscountChange(discount: Float, cartProduct: CartProduct) {
+                refreshAmount()
+                PosBusManager.setOneCartProduct(cartProduct!!, false)
+            }
+        }
+
+        adapter?.onItemLongClickListener = object : CartProductAdapter.OnItemLongClickListener {
+            override fun onLongClick(item: CartProduct) {
+                showDeleteCartProductDialog(item)
+            }
+        }
+        refreshFunUI()
+        tvUnit.text = AppBusManager.getAmountUnit()
+        tvPriceTitle.text = getString(R.string.print_title_product_sale)+"(" + AppBusManager.getAmountUnit() + ")"
+        tvTotalTitle.text = getString(R.string.print_title_product_subtotal)+"(" + AppBusManager.getAmountUnit() + ")"
+    }
+
+
+    override fun layoutContentId(): Int {
+        return R.layout.fragment_cart
+    }
+
+    override fun lazyLoad() {
+
+    }
+
+    override fun initData() {
+
+    }
+
+    override fun getPresenter(): CartPresenter {
+        return CartPresenter()
+    }
+
+    override fun initListener() {
+        btnCancel.setOnClickListener(this)
+        btnPendOrder.setOnClickListener(this)
+        btnCheckout.setOnClickListener(this)
+        ivScan.ext_doubleClick(this)
+        etSearch.addTextChangedListener(textWatcher)
+        ivSearch.setOnClickListener(this)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        etSearch.removeTextChangedListener(textWatcher)
+    }
+
+    //购物栏长按点击删除
+    fun showDeleteCartProductDialog(item: CartProduct) {
+        CommonDialog.Builder(activity!!)
+                .setContent(getString(R.string.are_you_sure_you_want_to_delete))
+                .setOnConfirmListener(object : CommonDialog.OnConfirmListener {
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                        PosBusManager.deleteOneCartProduct(item)
+                        if (isRefund) {
+                            refreshRefundCartUI()
+                        } else {
+                            refreshCashierCartUI()
+                        }
+                    }
+                })
+                .setOnCancelListener(object : CommonDialog.OnCancelListener {
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                    }
+                })
+                .create()
+                .show()
+    }
+
+    private fun refreshCashierCartUI() {
+        adapter?.setData(PosBusManager.getCartProducts())
+        val size = adapter?.mData!!.size
+        if (size == 0) {
+            btnCancel.isEnabled = false
+            btnCancel.alpha = 0.5F
+            btnCheckout.isEnabled = false
+            btnCheckout.alpha = 0.5F
+            btnPendOrder.text = getString(R.string.take_order)
+            btnPendOrder.isEnabled = true
+            btnPendOrder.alpha = 1f
+            showCartEmptyUI()
+        } else {
+            btnCancel.isEnabled = true
+            btnCancel.alpha = 1F
+            btnCheckout.isEnabled = true
+            btnCheckout.alpha = 1F
+            btnPendOrder.text = getString(R.string.pend_order)
+            btnPendOrder.isEnabled = true
+            btnPendOrder.alpha = 1F
+            cartStatusView.showContent()
+        }
+        refreshAmount()
+        refreshPendCount()
+    }
+
+    private fun refreshRefundCartUI() {
+        adapter?.setData(PosBusManager.getCartProducts())
+        val size = adapter?.mData!!.size
+        if (size == 0) {
+            btnCheckout.isEnabled = false
+            btnCheckout.alpha = 0.5F
+            btnPendOrder.isEnabled = false
+            btnPendOrder.alpha = 0.5F
+            showCartEmptyUI()
+        } else {
+            btnCheckout.isEnabled = true
+            btnCheckout.alpha = 1F
+            btnPendOrder.isEnabled = true
+            btnPendOrder.alpha = 1F
+            cartStatusView.showContent()
+        }
+        refreshAmount()
+    }
+
+    private fun refreshPendCount() {
+        val size = adapter?.mData!!.size
+        val count = PosBusManager.getPendOrders().size
+        tvCount.setText("" + count)
+        tvCount.visibility = if (count == 0) View.GONE else View.VISIBLE
+        if (count == 0 && size == 0) {
+            btnPendOrder.isEnabled = false
+            btnPendOrder.alpha = 0.5F
+        } else {
+            btnPendOrder.isEnabled = true
+            btnPendOrder.alpha = 1F
+        }
+    }
+
+    private fun refreshAmount() {
+        totalCount = 0
+        var total = 0.toDouble()
+        var realTotal = 0.toDouble()
+        for (cp in adapter?.mData!!) {
+            totalCount += cp.num
+            total += (cp.product.retailPrice.ext_formatAmount().toDouble() * cp.discount.ext_formatDiscount()).ext_formatAmount().toDouble() * cp.num
+            realTotal += (cp.product.retailPrice).ext_formatAmount().toDouble() * cp.num
+            logTools.d(cp.product.retailPrice.toDouble())
+            logTools.d(cp.discount)
+            logTools.d(cp.num)
+            logTools.d(cp.product.retailPrice.toDouble()*cp.discount.toDouble().ext_formatAmount().toDouble())
+            logTools.d(cp.product.retailPrice.toDouble()*0.33)
+        }
+        if (isRefund) {
+            llDiscount.visibility = View.GONE
+        } else {
+            llDiscount.visibility = View.GONE
+        }
+        logTools.d(total)
+        logTools.d(total*0.33)
+        logTools.d((2.5.toDouble() * 0.35.toFloat() * 3).toDouble())
+
+        tvDiscountAmount.text = (realTotal - total).ext_formatAmount()
+        tvTotalAmount.text = total.ext_formatAmount()
+        tvProductCount.text = getString(R.string.total_all) + totalCount.absoluteValue + getString(R.string.pieces_product)
+    }
+
+    //整单取消弹框
+    private fun showWholeOrderCancel() {
+        CommonDialog.Builder(activity!!)
+                .setContent(getString(R.string.you_want_to_cancel_the_entire_order))
+                .setOnConfirmListener(object : CommonDialog.OnConfirmListener {
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                        PosBusManager.clearCartProducts()
+                        if (isRefund) {
+                            refreshRefundCartUI()
+                        } else {
+                            refreshCashierCartUI()
+                        }
+                    }
+                })
+                .create()
+                .show()
+    }
+
+    private fun showSanResultDialog() {
+        CommonDialog.Builder(activity!!)
+                .setContent(getString(R.string.this_product_barcode_does_not_exist))
+                .setOnConfirmListener(object : CommonDialog.OnConfirmListener {
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                        showCreateGoodsPopup()
+                    }
+                })
+                .setOnCancelListener(object :CommonDialog.OnCancelListener{
+                    override fun onClick(dialog: Dialog) {
+                        dialog.dismiss()
+                        scanBarCode=""
+                    }
+                })
+                .create()
+                .show()
+    }
+
+    //挂单列表弹框
+    private fun showPendOrderListDialog() {
+        PendOrderListPopup.newInstance(null).show(childFragmentManager, "pend_order_list")
+    }
+
+
+    //结算弹窗
+    private fun showCheckoutDialog() {
+        val totalAmount = tvTotalAmount.text.toString().replace(AppBusManager.getAmountUnit(), "").trim()
+        val checkoutOrder = CheckoutOrder(totalCount, totalAmount, adapter?.mData!!)
+        val fragment = CheckoutPopup.newInstance(checkoutOrder, isRefund)
+        fragment.show(childFragmentManager, "check_out")
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCartProductChangeEvent(event: CartProductChangeEvent) {
+        refreshFunUI()
+        etSearch.setText("")
+        AppUtils.closeKeyboard(activity!!)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPendOrderNumChangeEvent(event: PendOrderNumChangeEvent) {
+        if (!isRefund) {
+            refreshPendCount()
+        }
+    }
+
+
+    @AfterPermissionGranted(RC_CAMERA)
+    private fun startScan() {
+        if (EasyPermissions.hasPermissions(activity!!, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // Already have permission, do the thing
+            ScanActivity.launchWithScanType(this, FOR_GOODS, ScanActivity.SCAN_ADD_GOODS)
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, getString(R.string.pls_permission_open_camera),
+                    RC_CAMERA, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (Activity.RESULT_OK == resultCode) {
+            when (requestCode) {
+                FOR_GOODS -> {
+                    if (data == null) {
+                        mPresenter.searchProduct(scanBarCode, PosConst.SEARCH_POS_PRODUCT)
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun showCreateGoodsPopup() {
+        var keyWord = ""
+        if (scanBarCode.isEmpty()) {
+            keyWord = etSearch.text.toString()
+        } else {
+            keyWord = scanBarCode
+        }
+        CreateGoodsPopup.newInstance(keyWord).show(childFragmentManager, "create_goods")
+        scanBarCode = ""
+    }
+
+    /**
+     * 刷新收银或者退款页面
+     */
+    private fun refreshFunUI() {
+        if (isRefund) {
+            btnCancel.visibility = View.INVISIBLE
+            btnCancel.isEnabled = false
+            btnPendOrder.text = getString(R.string.cancel_the_entire_order)
+            btnCheckout.text = getString(R.string.refund)
+            tvCount.visibility = View.INVISIBLE
+            refreshRefundCartUI()
+        } else {
+            btnCancel.visibility = View.VISIBLE
+            btnCancel.isEnabled = true
+            btnPendOrder.text = getString(R.string.pend_order)
+            btnCheckout.text = getString(R.string.bill_please)
+            tvCount.visibility = View.VISIBLE
+            refreshCashierCartUI()
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCashierFunChangeEvent(event: CashierFunChangeEvent) {
+        isRefund = event.isRefund
+        PosBusManager.setRefund(isRefund)
+        refreshFunUI()
+    }
+
+    override fun onSearchProductSuccess(products: ArrayList<Product>) {
+        if (products.isEmpty()) {
+            if (scanBarCode.isEmpty()) {
+                showSearchEmptyUI()
+            } else {//扫码
+                showSanResultDialog()
+            }
+        } else {
+            initSearchResult(products)
+            EventBus.getDefault().post(ShopPosProductsChangeEvent())
+        }
+    }
+
+    private fun showSearchEmptyUI() {
+        val emptyView = EmptyView.Builder(activity!!)
+                .setImageResoue(R.mipmap.bg_goods_empty)
+                .setShowText1(getString(R.string.no_search_results))
+                .setShowText2(getString(R.string.new_product))
+                .setClickLisener(object : View.OnClickListener {
+                    override fun onClick(p0: View?) {
+                        showCreateGoodsPopup()
+                    }
+                })
+                .create()
+        searchMsv.showEmpty(emptyView, ViewGroup.LayoutParams(-1, -1))
+    }
+
+    private fun showCartEmptyUI() {
+        val emptyView = EmptyView.Builder(activity!!)
+                .setImageResoue(R.mipmap.bg_cart_empty)
+                .setShowText1(getString(R.string.please_click_on_the_product))
+                .create()
+        cartStatusView.showEmpty(emptyView, ViewGroup.LayoutParams(-1, -1))
+    }
+
+    fun initSearchResult(list: ArrayList<Product>) {
+        rvProducts.layoutManager = LinearLayoutManager(context)
+        val adapter = SearchProductListAdapter(activity!!, list)
+        rvProducts.adapter = adapter
+        adapter.onItemClickListener = object : SearchProductListAdapter.OnItemClickListener {
+            override fun onClick(item: Product) {
+                etSearch.setText("")
+                AppUtils.closeKeyboard(activity!!)
+                val cartProduct = CartProduct(if (isRefund) -1 else 1, item)
+                PosBusManager.setOneCartProduct(cartProduct)
+                if (isRefund) {
+                    refreshRefundCartUI()
+                } else {
+                    refreshCashierCartUI()
+                }
+            }
+        }
+    }
+
+
+    val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+
+        override fun afterTextChanged(p0: Editable?) {
+            val text=p0.toString().trim()
+            if (!TextUtils.isEmpty(text)) {
+                val keywordStr =text
+                llSearchResult.visibility = View.VISIBLE
+                logTools.toJson(products)
+                val list = PosBusManager.getSearchProducts(keywordStr, products)
+                logTools.toJson(list)
+                if (list.isEmpty()) {
+                    logTools.d("list empty")
+                    //本地搜索没有结果,服务器搜索
+                    mPresenter.searchProduct(keywordStr, PosConst.SEARCH_POS_PRODUCT)
+                } else {
+                    searchMsv.showContent()
+                    initSearchResult(list)
+                }
+            } else {
+                llSearchResult.visibility = View.GONE
+            }
+        }
+
+    }
+    var scanBarCode = ""
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onScanResultEvent(event: ScanResultEvent) {
+        if (event.scanType==ScanActivity.SCAN_ADD_GOODS) {
+            scanBarCode = event.result
+            val product = PosBusManager.searchProductWithBarcode(scanBarCode, products)
+            val sevent = SearchResultEvent()
+            if (product == null) {
+                sevent.isEmpty = true
+            } else {
+                sevent.isEmpty = false
+                val cartProduct = CartProduct(if (isRefund) -1 else 1, product)
+                PosBusManager.setOneCartProduct(cartProduct)
+                if (isRefund) {
+                    refreshRefundCartUI()
+                } else {
+                    refreshCashierCartUI()
+                }
+            }
+            EventBus.getDefault().post(sevent)
+        }
+    }
+}

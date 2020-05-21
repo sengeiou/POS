@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_bg_gray_half_radius10_top">
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="14dp"
+            android:text="@string/delete_dialog_cancel"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/titleTextSize"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/new_product_create"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_alignParentEnd="true"
+            android:id="@+id/tvSure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="14dp"
+            android:text="@string/pls_confirm_pop"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/titleTextSize"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bg_white_half_radius10"
+        android:orientation="horizontal">
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/rvList"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/rvCategorys"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+    </ViewFlipper>
+</LinearLayout>
+

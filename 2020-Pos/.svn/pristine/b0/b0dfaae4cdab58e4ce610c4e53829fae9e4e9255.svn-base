@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45.3dp"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/shape_border_gray_radius4">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8-30"
+            android:textColor="@color/thirdTextColor"
+            android:textSize="@dimen/explainContentTextSize" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8-30"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/secondaryContentTextSize"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:text="0"
+        android:textColor="@color/green_67c8c7"
+        android:textSize="@dimen/text_size_20"
+        android:textStyle="bold" />
+    <View
+        android:id="@+id/vTag"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_tag_half_green" />
+</RelativeLayout>
+

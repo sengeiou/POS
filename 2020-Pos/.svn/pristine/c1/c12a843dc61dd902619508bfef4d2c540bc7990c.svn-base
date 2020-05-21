@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="74dp"
+    android:layout_marginEnd="12dp"
+    android:background="@drawable/shape_border_gray_radius4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="18dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_marginTop="3dp"
+            android:id="@+id/ivFlag"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_marginEnd="12dp"
+            android:src="@mipmap/icon_rocket" />
+
+        <LinearLayout
+            android:id="@+id/llRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/tvContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/mainTextColor"
+                android:textSize="@dimen/text_size_24" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/today_sales_financial"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="@dimen/secondaryContentTextSize" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+

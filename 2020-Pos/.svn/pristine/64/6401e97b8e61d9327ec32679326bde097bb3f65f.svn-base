@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@drawable/shape_bg_gray_half_radius10_top">
+
+        <TextView
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="14dp"
+            android:text="@string/cancel"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/titleTextSize"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/select_product"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="bold" />
+        <TextView
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/tvSure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="14dp"
+            android:text="@string/dailog_confirm"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/titleTextSize"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_bg_white_half_radius10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="12dp"
+                android:id="@+id/rvCategorys"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineColor" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4.25"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+            <com.epro.pos.ui.view.CustomSearchView
+                app:custom_sv_hint="@string/please_enter_barcode_article_name_to_search"
+                android:id="@+id/searchView"
+                android:layout_width="320dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="12dp" />
+
+            <RelativeLayout
+                android:id="@+id/rlTitle"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:id="@+id/llTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:background="@color/gray_f8f9fa"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/lineColor" />
+            </RelativeLayout>
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srlAccentColor="@color/black"
+                app:srlEnableNestedScrolling="true"
+                app:srlPrimaryColor="@color/white">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvProductList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
+
+                    <com.classic.common.MultipleStatusView
+                        android:id="@+id/multipleStatusView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:noNetworkView="@layout/layout_no_network_view"
+                        app:emptyView="@layout/layout_empty_view"
+                        app:errorView="@layout/layout_error_view"
+                        app:loadingView="@layout/layout_loading_view" />
+                </RelativeLayout>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+

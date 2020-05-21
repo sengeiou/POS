@@ -1,0 +1,100 @@
+package com.mike.baselib.utils;
+
+import android.app.Application;
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.crashreport.CrashReport;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+/**
+ * 替代application 使其能在各层被调用
+ * Created by Mike on 2016/10/11.
+ */
+public class AppContext {
+
+    private static AppContext appContext;
+    private Handler mainHandler;
+    private RefWatcher refWatcher=RefWatcher.DISABLED;
+    public Context getContext() {
+        return context;
+    }
+
+    public RefWatcher getRefWatcher() {
+        return refWatcher;
+    }
+
+    private Context context;
+
+    public static AppContext getInstance() {
+        if (appContext == null) {
+            synchronized (AppContext.class) {
+                if (appContext == null) {
+                    appContext = new AppContext();
+                }
+            }
+        }
+        return appContext;
+    }
+
+
+    public void init(Application application) {
+        this.context = application;
+        this.mainHandler = new Handler(Looper.getMainLooper());
+        context=application;
+        AppConfig.Companion.init();
+        DisplayManager.INSTANCE.init(context);
+        AppBusManager.Companion.setDeviceName();
+        //refWatcher=setupLeakCanary();
+        disableAPIDialog();
+        //Bugly 初始化
+        Bugly.init(context, Constants.Companion.getBUGLY_APPID(), true);
+        if (!TextUtils.isEmpty(AppBusManager.Companion.getUsername())) {
+            CrashReport.setUserId(AppBusManager.Companion.getUsername());
+        }
+    }
+
+    public Handler getMainHandler() {
+        return mainHandler;
+    }
+
+    public String getString(int id) {
+        return context.getResources().getString(id);
+    }
+
+    public Resources getResources() {
+        return context.getResources();
+    }
+
+    private RefWatcher setupLeakCanary(){
+        return LeakCanary.isInAnalyzerProcess(context)?
+                RefWatcher.DISABLED: LeakCanary.install((Application) context);
+    }
+
+    private void disableAPIDialog() {
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                Class clazz = Class.forName("android.app.ActivityThread");
+                Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
+                currentActivityThread.setAccessible(true);
+                Object activityThread = currentActivityThread.invoke((Object)null);
+                Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
+                mHiddenApiWarningShown.setAccessible(true);
+                mHiddenApiWarningShown.setBoolean(activityThread, true);
+            } catch (Exception var5) {
+                var5.printStackTrace();
+            }
+
+        }
+    }
+
+}
